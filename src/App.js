@@ -47,7 +47,7 @@ function App() {
 
   return (
     <div className="App">
-      <Router basename="/">
+      <Router>
         <MainApp
           handleLogout={handleLogout}
           isAuthenticated={isAuthenticated}
@@ -108,18 +108,19 @@ function MainApp({ handleLogout, isAuthenticated, authDispatch }) {
       )}
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" exact element={<Home />} />
 
-        <Route path="/products" element={<Products />} />
+        <Route path="/products" exact element={<Products />} />
 
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
-        <Route path="/productdetails" element={<ProductDetails />} />
-        <Route path="/faqs" element={<Faqs />} />
+        <Route path="/about" exact element={<About />} />
+        <Route path="/contact" exact element={<Contact />} />
+        <Route path="/forgotpassword" exact element={<ForgotPassword />} />
+        <Route path="/productdetails" exact element={<ProductDetails />} />
+        <Route path="/faqs" exact element={<Faqs />} />
 
         <Route
           path="/dashboard"
+          exact
           element={
             isAuthenticated ? <UserDashboard /> : <Navigate to="/login" />
           }
@@ -127,6 +128,7 @@ function MainApp({ handleLogout, isAuthenticated, authDispatch }) {
 
         <Route
           path="/login"
+          exact
           element={
             isAuthenticated ? (
               <Navigate to="/dashboard" state={{ fromLogin: true }} />
@@ -138,6 +140,7 @@ function MainApp({ handleLogout, isAuthenticated, authDispatch }) {
 
         <Route
           path="/register"
+          exact
           element={
             isAuthenticated ? (
               <Navigate to="/dashboard" state={{ fromRegister: true }} />
