@@ -1,0 +1,17 @@
+.aboutImage {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 90px;
+  text-align: center;
+  color: #f6f9fc;
+  box-sizing: border-box; /* Add this line */
+}
+
+/* For mobile screens */
+@media only screen and (max-width: 600px) {
+  .aboutImage {
+    padding: 80px;
+    box-sizing: border-box; /* Add this line for mobile too */
+  }
+}

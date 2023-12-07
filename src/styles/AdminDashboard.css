@@ -1,0 +1,16 @@
+.drawerWithBackground {
+  position: relative;
+  background-image: url(${SideNav});
+  background-size: cover;
+}
+
+.drawerWithBackground::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #83948a;
+  opacity: 0.5;
+}
