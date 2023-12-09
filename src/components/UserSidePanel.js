@@ -18,11 +18,11 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import { withStyles } from "@mui/styles";
-import { fetchProfilePic } from "../components/cms";
+//import { fetchProfilePic } from "../components/cms";
 
 const storedUsername = localStorage.getItem("userName");
-const valuesData = await fetchProfilePic(storedUsername);
-const imagePath = valuesData._profilePicture;
+//const valuesData = await fetchProfilePic(storedUsername);
+//const imagePath = valuesData._profilePicture;
 //const filename = imagePath.substring(imagePath.lastIndexOf("\\") + 1);
 
 const ColoredBadge = withStyles({

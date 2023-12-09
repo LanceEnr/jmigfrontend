@@ -37,12 +37,12 @@ import StorefrontIcon from "@mui/icons-material/Storefront";
 import LiveHelpIcon from "@mui/icons-material/LiveHelp";
 import InfoIcon from "@mui/icons-material/Info";
 import MailIcon from "@mui/icons-material/Mail";
-import { fetchProfilePic } from "../components/cms";
+//import { fetchProfilePic } from "../components/cms";
 import LogoGravasend from "../assets/LogoGravasend.webp";
 import Logout from "@mui/icons-material/Logout";
 
-const storedUsername = localStorage.getItem("userName");
-const valuesData = await fetchProfilePic(storedUsername);
+//const storedUsername = localStorage.getItem("userName");
+//const valuesData = await fetchProfilePic(storedUsername);
 //const imagePath = valuesData._profilePicture;
 //const filename = imagePath.substring(imagePath.lastIndexOf("\\") + 1);
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -66,7 +66,7 @@ const ColoredBadge = withStyles({
   },
 })(Badge);
 
-const token = localStorage.getItem("token");
+//const token = localStorage.getItem("token");
 
 const pages = ["Home", "Products", "FAQs", "About", "Contact"];
 const mobilePages = [
@@ -77,67 +77,66 @@ const mobilePages = [
   { name: "Contact", icon: <MailIcon /> },
 ];
 
-const timeAgo = (timestamp) => {
-  const currentDate = new Date();
-  const notificationDate = new Date(timestamp);
-  const timeDifference = currentDate - notificationDate;
-  const seconds = Math.floor(timeDifference / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
+// const timeAgo = (timestamp) => {
+//   const currentDate = new Date();
+//   const notificationDate = new Date(timestamp);
+//   const timeDifference = currentDate - notificationDate;
+//   const seconds = Math.floor(timeDifference / 1000);
+//   const minutes = Math.floor(seconds / 60);
+//   const hours = Math.floor(minutes / 60);
 
-  if (minutes < 1) {
-    // Display seconds if less than 1 minute
-    return `${seconds} second${seconds === 1 ? "" : "s"} ago`;
-  } else if (hours < 1) {
-    // Display minutes if less than 1 hour
-    return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
-  } else if (hours < 24) {
-    // Display hours if less than 24 hours
-    return `${hours} hour${hours === 1 ? "" : "s"} ago`;
-  } else {
-    // If more than 24 hours, display the full date
-    const options = {
-      weekday: "short",
-      month: "short",
-      day: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      timeZoneName: "short",
-    };
-    return notificationDate.toLocaleString("en-US", options);
-  }
-};
+//   if (minutes < 1) {
+//     // Display seconds if less than 1 minute
+//     return `${seconds} second${seconds === 1 ? "" : "s"} ago`;
+//   } else if (hours < 1) {
+//     // Display minutes if less than 1 hour
+//     return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
+//   } else if (hours < 24) {
+//     // Display hours if less than 24 hours
+//     return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+//   } else {
+//     // If more than 24 hours, display the full date
+//     const options = {
+//       weekday: "short",
+//       month: "short",
+//       day: "2-digit",
+//       year: "numeric",
+//       hour: "2-digit",
+//       minute: "2-digit",
+//       second: "2-digit",
+//       timeZoneName: "short",
+//     };
+//     return notificationDate.toLocaleString("en-US", options);
+//   }
+// };
 
-const settings = ["Dashboard", "Logout"];
-const userName = localStorage.getItem("userName");
-const name = "";
-const fetchNotifications = async () => {
-  const storedUsername = localStorage.getItem("userName");
+// const userName = localStorage.getItem("userName");
+// //const name = "";
+// const fetchNotifications = async () => {
+//   const storedUsername = localStorage.getItem("userName");
 
-  try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/fetch-notifications?userName=${storedUsername}`
-    );
+//   try {
+//     const response = await axios.get(
+//       `${process.env.REACT_APP_API_URL}/fetch-notifications?userName=${storedUsername}`
+//     );
 
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return [];
-  }
-};
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//     return [];
+//   }
+// };
 
-const transformNotification = (data) => {
-  return data.map((item) => ({
-    icon: item._title.toLowerCase().includes("order") ? OrderIcon : EventIcon,
-    heading: item._title,
-    text: item._description,
-    date: item._date,
-  }));
-};
+// const transformNotification = (data) => {
+//   return data.map((item) => ({
+//     icon: item._title.toLowerCase().includes("order") ? OrderIcon : EventIcon,
+//     heading: item._title,
+//     text: item._description,
+//     date: item._date,
+//   }));
+// };
 
-const notifications = transformNotification(await fetchNotifications());
+// const notifications = transformNotification(await fetchNotifications());
 
 function ResponsiveAppBar() {
   const navigate = useNavigate();
@@ -171,7 +170,7 @@ function ResponsiveAppBar() {
   const handleCloseSettingsMenu = () => {
     setAnchorElSettings(null);
   };
-  const userName = localStorage.getItem("userName");
+  //const userName = localStorage.getItem("userName");
   return (
     <AppBar position="sticky" style={{ backgroundColor: "#EAECEA" }}>
       <Container>
@@ -206,6 +205,7 @@ function ResponsiveAppBar() {
             <SwipeableDrawer
               anchor="left"
               open={Boolean(anchorElNav)}
+              onOpen={() => {}}
               onClose={handleCloseNavMenu}
             >
               <Box
@@ -218,8 +218,8 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 onKeyDown={handleCloseNavMenu}
               >
-                <IconButton sx={{ mb: 2 }}>
-                  <CloseIcon onClick={handleCloseNavMenu} />
+                <IconButton onClick={handleCloseNavMenu} sx={{ mb: 2 }}>
+                  <CloseIcon />
                 </IconButton>
 
                 <Divider sx={{ mb: 2 }} />
@@ -302,7 +302,7 @@ function ResponsiveAppBar() {
               <Tooltip title="Notifications">
                 <IconButton onClick={handleOpenNotificationsMenu}>
                   <ColoredBadge
-                    badgeContent={notifications ? notifications.length : 0}
+                  // badgeContent={notifications ? notifications.length : 0}
                   >
                     <NotificationsIcon color="action" />
                   </ColoredBadge>
@@ -372,7 +372,7 @@ function ResponsiveAppBar() {
 
                 <Divider />
                 <StyledBox sx={{ overflow: "auto", maxHeight: "600px" }}>
-                  {notifications.length === 0 ? (
+                  {/* {notifications.length === 0 ? (
                     <Typography
                       variant="subtitle2"
                       color="textSecondary"
@@ -433,7 +433,7 @@ function ResponsiveAppBar() {
                         <Divider />
                       </div>
                     ))
-                  )}
+                  )} */}
                 </StyledBox>
               </Menu>
             </Box>
@@ -443,7 +443,7 @@ function ResponsiveAppBar() {
               <Tooltip title="Settings">
                 <IconButton onClick={handleOpenSettingsMenu} sx={{ p: 0 }}>
                   <Avatar
-                    alt={userName}
+                    alt="username"
                     //src={require(`../images/profile/${filename}`)}
                   />
                 </IconButton>
@@ -494,11 +494,11 @@ function ResponsiveAppBar() {
                 >
                   <ListItemIcon>
                     <Avatar
-                      alt={userName}
+                      alt="username"
                       // src={require(`../images/profile/${filename}`)}
                     />
                   </ListItemIcon>
-                  {userName}
+                  Username
                 </MenuItem>
                 <Divider />
 
