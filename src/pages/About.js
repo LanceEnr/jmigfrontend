@@ -3,34 +3,48 @@ import Banner from "../components/Banner";
 import "../styles/About.css";
 import Box from "@mui/material/Box";
 
-import AboutData, { fetchAboutData } from "./cmshelper/cms";
 import Mission from "../components/Mission";
 import Vision from "../components/Vision";
-import { fetchBannerDataAbout } from "./cmshelper/cms";
-
-const valuesData = await fetchBannerDataAbout();
-const imagePath = valuesData._image;
-const filename = imagePath.substring(imagePath.lastIndexOf("\\") + 1);
 
 function About() {
   window.scrollTo({ top: 0 });
+
+  const [bannerData, setBannerData] = useState({
+    imagePath: "",
+    filename: "",
+    title: "",
+  });
 
   const [vision, setVision] = useState("");
   const [mission, setMission] = useState("");
 
   useEffect(() => {
-    fetchAboutData()
-      .then((data) => {
-        if (data) {
-          setVision(data._vision);
-          setMission(data._mission);
-        } else {
-          console.error("Banner image data not found");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching banner:", error);
-      });
+    async function fetchData() {
+      try {
+        const bannerResponse = await axios.get(
+          `${process.env.REACT_APP_API_URL}/fetch-category-values/About Page`
+        );
+        const aboutResponse = await axios.get(
+          `${process.env.REACT_APP_API_URL}/fetch-about`
+        );
+
+        const bannerData = {
+          imagePath: bannerResponse.data._image,
+          filename: bannerResponse.data._image.substring(
+            bannerResponse.data._image.lastIndexOf("\\") + 1
+          ),
+          title: bannerResponse.data._heading,
+        };
+
+        setBannerData(bannerData);
+        setVision(aboutResponse.data._vision);
+        setMission(aboutResponse.data._mission);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchData();
   }, []);
   return (
     <div>
