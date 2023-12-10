@@ -6,6 +6,7 @@ import PrintIcon from "@mui/icons-material/Print";
 import axios from "axios";
 import { Box, Grid } from "@mui/material";
 import InventoryBar from "./InventoryBar";
+import ReactToPrint from "react-to-print";
 
 const fetchInventoryData = async () => {
   try {
@@ -44,6 +45,8 @@ const transformInventoryData = (data) => {
 function CurrenInventoryReport() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+  const componentRef = React.useRef();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -58,6 +61,7 @@ function CurrenInventoryReport() {
 
     fetchData();
   }, [navigate]);
+
   return (
     <div>
       <Box sx={{ my: 4 }}>
@@ -87,13 +91,18 @@ function CurrenInventoryReport() {
                 >
                   Go Back
                 </Button>
-                <Button
-                  variant="contained"
-                  sx={{ ml: 1 }}
-                  startIcon={<PrintIcon />}
-                >
-                  Print
-                </Button>
+                <ReactToPrint
+                  trigger={() => (
+                    <Button
+                      variant="contained"
+                      sx={{ ml: 1 }}
+                      startIcon={<PrintIcon />}
+                    >
+                      Print
+                    </Button>
+                  )}
+                  content={() => componentRef.current}
+                />
               </Box>
             </Box>
             <Paper
@@ -104,6 +113,7 @@ function CurrenInventoryReport() {
                 flexDirection: "column",
                 height: "74vh",
               }}
+              ref={componentRef}
             >
               <InventoryBar data={data} />
             </Paper>

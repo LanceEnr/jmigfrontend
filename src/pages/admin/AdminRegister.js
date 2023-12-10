@@ -182,7 +182,7 @@ export default function AdminRegister() {
             marked="center"
             align="center"
           >
-            ADMIN SIGN UP
+            <span style={{ color: "#bd8512" }}>ADMIN</span> SIGN UP
           </Typography>
           <Typography align="center">
             {"Already have an account? "}

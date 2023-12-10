@@ -428,7 +428,7 @@ export default function AdminDashboard() {
           >
             <MenuIcon />
           </IconButton>
-          <Link to="/" className="unstyled-link">
+          <Link to="/adminhome" className="unstyled-link">
             <Box
               sx={{
                 display: "flex",

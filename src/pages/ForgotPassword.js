@@ -66,17 +66,16 @@ export default function ForgetPassword() {
 
   return (
     <div className={classes.signin}>
-      <Container maxWidth="sm" sx={{ mt: 4, mb: 4 }}>
+      <Container maxWidth="sm" sx={{ pt: 8, mb: 4 }}>
         <Box
           sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
             boxShadow: 3,
             borderRadius: 2,
             px: 4,
             py: 6,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
             backgroundColor: theme.palette.background.paper,
           }}
         >

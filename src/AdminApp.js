@@ -1,7 +1,6 @@
-import "./App.css";
-import React, { useReducer, useEffect, Suspense } from "react";
+import React, { useReducer, useEffect, lazy, Suspense } from "react";
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
@@ -10,47 +9,79 @@ import { Box, Toolbar, Grid } from "@mui/material";
 import authReducer from "./store/reducers/authReducer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import AdminLogin from "./pages/admin/AdminLogin";
 
-import AdminRegister from "./pages/admin/AdminRegister";
-import AdminForgotPassword from "./pages/admin/AdminForgotPassword";
-import AdminProfileInfo from "./pages/admin/AdminProfileInfo";
-import NewFleetInformation from "./pages/admin/NewFleetInformation";
-import Maintenance from "./pages/admin/Maintenance";
-import Inspection from "./pages/admin/Inspection";
-import Trips from "./pages/admin/Trips";
-import JobOrderSystem from "./pages/admin/JobOrderSystem";
-import DeliveryMonitoring from "./pages/admin/DeliveryMonitoring";
-import ManageAppointments from "./pages/admin/ManageAppointments";
-import Inventory from "./pages/admin/Inventory";
-import Content from "./pages/admin/Content";
-import ManageContactForm from "./pages/admin/ManageContactForm";
-import Listings from "./pages/admin/Listings";
-import AddFleet from "./pages/admin/components/AddFleet";
-import EditFleet from "./pages/admin/components/EditFleet";
-import AddMaintenanceScheduling from "./pages/admin/components/AddMaintenanceScheduling";
-import EditMaintenanceScheduling from "./pages/admin/components/EditMaintenanceScheduling";
-import EditMaintenanceRecord from "./pages/admin/components/EditMaintenanceRecord";
-import AddInspection from "./pages/admin/components/AddInspection";
-import EditInspection from "./pages/admin/components/EditInspection";
-import NewDriverManagement from "./pages/admin/NewDriverManagement";
-import AddDriver from "./pages/admin/components/AddDriver";
-import EditDriver from "./pages/admin/components/EditDriver";
-import NewManageOrders from "./pages/admin/components/NewManageOrders";
-import AddOrder from "./pages/admin/components/AddOrder";
-import EditOrder from "./pages/admin/components/EditOrder";
-import AddCurrent from "./pages/admin/components/AddCurrent";
-import EditCurrent from "./pages/admin/components/EditCurrent";
-import AddFaq from "./pages/admin/components/AddFaq";
-import EditFaq from "./pages/admin/components/EditFaq";
-import NewUserManagement from "./pages/admin/components/NewUserManagement";
-import RandomStringGenerator from "./pages/admin/components/RandomStringGenerator";
-import { toast } from "react-toastify";
-import AdminHomepage from "./pages/admin/AdminHomepage";
-import TripMetricsReport from "./pages/admin/components/TripMetricsReport";
-import DriversReport from "./pages/admin/components/DriversReport";
-import CurrenInventoryReport from "./pages/admin/components/CurrentInventoryReport";
+// Lazy loading the components
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
+const AdminRegister = lazy(() => import("./pages/admin/AdminRegister"));
+const AdminForgotPassword = lazy(() =>
+  import("./pages/admin/AdminForgotPassword")
+);
+const AdminProfileInfo = lazy(() => import("./pages/admin/AdminProfileInfo"));
+const NewFleetInformation = lazy(() =>
+  import("./pages/admin/NewFleetInformation")
+);
+const Maintenance = lazy(() => import("./pages/admin/Maintenance"));
+const Inspection = lazy(() => import("./pages/admin/Inspection"));
+const Trips = lazy(() => import("./pages/admin/Trips"));
+const JobOrderSystem = lazy(() => import("./pages/admin/JobOrderSystem"));
+const DeliveryMonitoring = lazy(() =>
+  import("./pages/admin/DeliveryMonitoring")
+);
+const ManageAppointments = lazy(() =>
+  import("./pages/admin/ManageAppointments")
+);
+const Inventory = lazy(() => import("./pages/admin/Inventory"));
+const Content = lazy(() => import("./pages/admin/Content"));
+const ManageContactForm = lazy(() => import("./pages/admin/ManageContactForm"));
+const Listings = lazy(() => import("./pages/admin/Listings"));
+const AddFleet = lazy(() => import("./pages/admin/components/AddFleet"));
+const EditFleet = lazy(() => import("./pages/admin/components/EditFleet"));
+const AddMaintenanceScheduling = lazy(() =>
+  import("./pages/admin/components/AddMaintenanceScheduling")
+);
+const EditMaintenanceScheduling = lazy(() =>
+  import("./pages/admin/components/EditMaintenanceScheduling")
+);
+const EditMaintenanceRecord = lazy(() =>
+  import("./pages/admin/components/EditMaintenanceRecord")
+);
+const AddInspection = lazy(() =>
+  import("./pages/admin/components/AddInspection")
+);
+const EditInspection = lazy(() =>
+  import("./pages/admin/components/EditInspection")
+);
+const NewDriverManagement = lazy(() =>
+  import("./pages/admin/NewDriverManagement")
+);
+const AddDriver = lazy(() => import("./pages/admin/components/AddDriver"));
+const EditDriver = lazy(() => import("./pages/admin/components/EditDriver"));
+const NewManageOrders = lazy(() =>
+  import("./pages/admin/components/NewManageOrders")
+);
+const AddOrder = lazy(() => import("./pages/admin/components/AddOrder"));
+const EditOrder = lazy(() => import("./pages/admin/components/EditOrder"));
+const AddCurrent = lazy(() => import("./pages/admin/components/AddCurrent"));
+const EditCurrent = lazy(() => import("./pages/admin/components/EditCurrent"));
+const AddFaq = lazy(() => import("./pages/admin/components/AddFaq"));
+const EditFaq = lazy(() => import("./pages/admin/components/EditFaq"));
+const NewUserManagement = lazy(() =>
+  import("./pages/admin/components/NewUserManagement")
+);
+const RandomStringGenerator = lazy(() =>
+  import("./pages/admin/components/RandomStringGenerator")
+);
+const AdminHomepage = lazy(() => import("./pages/admin/AdminHomepage"));
+const TripMetricsReport = lazy(() =>
+  import("./pages/admin/components/TripMetricsReport")
+);
+const DriversReport = lazy(() =>
+  import("./pages/admin/components/DriversReport")
+);
+const CurrenInventoryReport = lazy(() =>
+  import("./pages/admin/components/CurrentInventoryReport")
+);
 
 const initialState = {
   isAuthenticated: !!localStorage.getItem("adminToken"),
@@ -346,6 +377,7 @@ function AdminApp() {
             }
           />
         </Routes>
+
         <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
       </Router>
     </div>

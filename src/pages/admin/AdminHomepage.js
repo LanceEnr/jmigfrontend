@@ -246,7 +246,7 @@ function AdminHomepage() {
             style={{ fontWeight: "bold", fontSize: "30px" }}
             color="secondary"
           >
-            Admin
+            Lance
           </Typography>
         </Typography>
         <Grid sx={{ mt: 3 }} container spacing={3}>
@@ -308,7 +308,6 @@ function AdminHomepage() {
                         sx={{ fontWeight: "bold" }}
                         variant="overline"
                       >
-                        {" "}
                         Appointments
                       </Typography>
                       <Typography
@@ -389,7 +388,6 @@ function AdminHomepage() {
                         sx={{ fontWeight: "bold" }}
                         variant="overline"
                       >
-                        {" "}
                         Maintenance
                       </Typography>
                       <Typography
@@ -397,7 +395,7 @@ function AdminHomepage() {
                         color="secondary"
                         sx={{ fontWeight: "bold" }}
                       >
-                        {maintenance}
+                        {maintenance}{" "}
                         <Chip
                           label={
                             <Typography
@@ -425,7 +423,7 @@ function AdminHomepage() {
                   </Stack>
                 </CardContent>
               </CardActionArea>
-            </Card>{" "}
+            </Card>
           </Grid>
           <Grid item xs={2.4}>
             <Card>
@@ -443,7 +441,6 @@ function AdminHomepage() {
                         sx={{ fontWeight: "bold" }}
                         variant="overline"
                       >
-                        {" "}
                         Inspection
                       </Typography>
                       <Typography
@@ -451,7 +448,7 @@ function AdminHomepage() {
                         color="secondary"
                         sx={{ fontWeight: "bold" }}
                       >
-                        {inspection}
+                        {inspection}{" "}
                         <Chip
                           label={
                             <Typography

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Typography from "../../../components/common/Typography";
 import { Link } from "react-router-dom";
+import ReactToPrint from "react-to-print";
 
 import axios from "axios";
 import { Paper, Button } from "@mui/material";
@@ -127,6 +128,8 @@ function TripMetricsReport() {
     return `hsl(${hue}, 70%, 50%)`;
   };
 
+  const componentRef = React.useRef();
+
   return (
     <div>
       <Box sx={{ my: 4 }}>
@@ -156,13 +159,18 @@ function TripMetricsReport() {
                 >
                   Go Back
                 </Button>
-                <Button
-                  variant="contained"
-                  sx={{ ml: 1 }}
-                  startIcon={<PrintIcon />}
-                >
-                  Print
-                </Button>
+                <ReactToPrint
+                  trigger={() => (
+                    <Button
+                      variant="contained"
+                      sx={{ ml: 1 }}
+                      startIcon={<PrintIcon />}
+                    >
+                      Print
+                    </Button>
+                  )}
+                  content={() => componentRef.current}
+                />
               </Box>
             </Box>
             <Paper
@@ -173,9 +181,9 @@ function TripMetricsReport() {
                 pb: 6,
                 display: "flex",
                 flexDirection: "column",
-
                 height: "74vh",
               }}
+              ref={componentRef}
             >
               <MyResponsiveBar data={dynamicData} />
             </Paper>

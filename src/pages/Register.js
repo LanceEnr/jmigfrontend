@@ -19,6 +19,8 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
+import { useTheme } from "@mui/material/styles";
+
 import DialogTitle from "@mui/material/DialogTitle";
 import BannerImage from "../assets/about.webp";
 import { makeStyles } from "@mui/styles"; // Import makeStyles for custom styles
@@ -173,21 +175,21 @@ export default function Register() {
     currentDate.setFullYear(currentDate.getFullYear() - 18);
     return currentDate.toISOString().slice(0, 10); // Format as YYYY-MM-DD
   };
+  const theme = useTheme();
 
   return (
     <div className={classes.signin}>
-      <Container maxWidth="sm" sx={{ mt: 4, mb: 4 }}>
+      <Container maxWidth="sm" sx={{ pt: 8, mb: 4 }}>
         <Box
           sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
             boxShadow: 3,
             borderRadius: 2,
             px: 4,
             py: 6,
-            backgroundColor: "#ffffff",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            backgroundColor: theme.palette.background.paper,
           }}
         >
           <Typography

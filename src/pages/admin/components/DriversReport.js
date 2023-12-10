@@ -5,8 +5,11 @@ import { Paper, Button } from "@mui/material";
 import PrintIcon from "@mui/icons-material/Print";
 import { Box, Grid } from "@mui/material";
 import MyResponsivePie from "./MyResponsivePie";
+import ReactToPrint from "react-to-print";
 
 function DriversReport() {
+  const componentRef = React.useRef();
+
   return (
     <div>
       <Box sx={{ my: 4 }}>
@@ -36,13 +39,18 @@ function DriversReport() {
                 >
                   Go Back
                 </Button>
-                <Button
-                  variant="contained"
-                  sx={{ ml: 1 }}
-                  startIcon={<PrintIcon />}
-                >
-                  Print
-                </Button>
+                <ReactToPrint
+                  trigger={() => (
+                    <Button
+                      variant="contained"
+                      sx={{ ml: 1 }}
+                      startIcon={<PrintIcon />}
+                    >
+                      Print
+                    </Button>
+                  )}
+                  content={() => componentRef.current}
+                />
               </Box>
             </Box>
             <Paper
@@ -55,6 +63,7 @@ function DriversReport() {
                 flexDirection: "column",
                 height: "74vh",
               }}
+              ref={componentRef}
             >
               <MyResponsivePie />
             </Paper>

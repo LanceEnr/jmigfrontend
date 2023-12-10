@@ -86,7 +86,7 @@ export default function ForgotPassword() {
             marked="center"
             align="center"
           >
-            RESET PASSWORD
+            <span style={{ color: "#bd8512" }}>ADMIN</span> RESET PASSWORD
           </Typography>
           {message && (
             <Typography variant="body1" color="textSecondary">

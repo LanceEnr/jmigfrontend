@@ -9,11 +9,11 @@ import {
   Button,
   Paper,
   Box,
+  Chip,
 } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import Typography from "../../../components/common/Typography";
 import { alpha, styled } from "@mui/material/styles";
 
@@ -181,7 +181,45 @@ export default function RandomStringGenerator() {
           {params.colDef.headerName}
         </Typography>
       ),
+      renderCell: (params) => {
+        if (params.value === true) {
+          return (
+            <Chip
+              label={
+                <Typography
+                  sx={{
+                    fontSize: "10px",
+                    color: "info.dark",
+                  }}
+                >
+                  Redeemed
+                </Typography>
+              }
+              sx={{ bgcolor: "#90caf9" }}
+              size="small"
+            />
+          );
+        } else if (params.value === false) {
+          return (
+            <Chip
+              label={
+                <Typography
+                  sx={{
+                    fontSize: "10px",
+                    color: "success.dark",
+                  }}
+                >
+                  Available
+                </Typography>
+              }
+              sx={{ bgcolor: "#8dd290" }}
+              size="small"
+            />
+          );
+        }
+      },
     },
+
     {
       field: "_dateTime",
       headerName: "DATE AND TIME GENERATED",

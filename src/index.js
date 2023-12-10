@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import ReactDOM from "react-dom";
@@ -8,6 +8,7 @@ import rootReducer from "./store/reducers/authReducer";
 import App from "./App";
 import AdminApp from "./AdminApp";
 import reportWebVitals from "./reportWebVitals";
+import { RotateLoader } from "react-spinners";
 
 const store = createStore(rootReducer);
 const theme = createTheme({
@@ -135,7 +136,23 @@ ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
       <ThemeProvider theme={theme}>
-        {shouldRenderAdminApp ? <AdminApp /> : <App />}
+        <Suspense
+          fallback={
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100vh",
+                backgroundColor: "rgba(255, 255, 255, 0.5)", // This sets the background color to white with 50% opacity
+              }}
+            >
+              <RotateLoader color={"#83948a"} loading={true} size={15} />
+            </div>
+          }
+        >
+          {shouldRenderAdminApp ? <AdminApp /> : <App />}
+        </Suspense>
       </ThemeProvider>
     </React.StrictMode>
   </Provider>,

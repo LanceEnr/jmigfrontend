@@ -132,7 +132,7 @@ export default function AdminLogin({ dispatch }) {
             marked="center"
             align="center"
           >
-            ADMIN SIGN IN
+            <span style={{ color: "#bd8512" }}>ADMIN</span> SIGN IN
           </Typography>
           <Typography align="center">
             {"Not an admin yet? "}

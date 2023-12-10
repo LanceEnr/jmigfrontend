@@ -124,14 +124,13 @@ export default function Login({ dispatch }) {
 
   return (
     <div className={classes.signin}>
-      <Container maxWidth="sm" sx={{ mt: 4, mb: 4 }}>
+      <Container maxWidth="sm" sx={{ pt: 8, mb: 4 }}>
         <Box
           sx={{
             boxShadow: 3,
             borderRadius: 2,
             px: 4,
             py: 6,
-            marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",

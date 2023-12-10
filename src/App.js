@@ -1,7 +1,7 @@
 import "./App.css";
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect, lazy } from "react";
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
@@ -12,23 +12,25 @@ import "@fontsource/montserrat/400.css"; // Specify weight
 import "@fontsource/montserrat/400-italic.css"; // Specify weight and style
 
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
-import Home from "./pages/Home";
-import Products from "./pages/Products";
-import Contact from "./pages/Contact";
-import About from "./pages/About";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import ForgotPassword from "./pages/ForgotPassword";
-import Faqs from "./pages/Faqs";
-import ProductDetails from "./pages/ProductDetails";
-import UserDashboard from "./pages/UserDashboard";
+
 import authReducer from "./store/reducers/authReducer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import AppFooter from "./components/AppFooter";
 import TopBar from "./components/TopBar";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+
+// Lazy load the components
+const Home = lazy(() => import("./pages/Home"));
+const Products = lazy(() => import("./pages/Products"));
+const Contact = lazy(() => import("./pages/Contact"));
+const About = lazy(() => import("./pages/About"));
+const Login = lazy(() => import("./pages/Login"));
+const Register = lazy(() => import("./pages/Register"));
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
+const Faqs = lazy(() => import("./pages/Faqs"));
+const ProductDetails = lazy(() => import("./pages/ProductDetails"));
+const UserDashboard = lazy(() => import("./pages/UserDashboard"));
 
 const initialState = {
   isAuthenticated: !!localStorage.getItem("token"),
