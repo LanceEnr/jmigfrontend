@@ -48,7 +48,7 @@ function About() {
   }, []);
   return (
     <div>
-      <Banner bannerImage={filename} title={valuesData._heading} />
+      <Banner bannerImage={bannerData.filename} title={bannerData.title} />
       <Mission />
       <Box sx={{ mt: 3 }}>
         <Vision />
