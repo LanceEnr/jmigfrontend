@@ -9,7 +9,6 @@ import Mission from "../components/Mission";
 import Vision from "../components/Vision";
 
 function About() {
-  window.scrollTo({ top: 0 });
   const [bannerData, setBannerData] = useState({
     imagePath: "",
     filename: "",
