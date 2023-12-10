@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios"; // Make sure to import axios
+
 import Banner from "../components/Banner";
 import "../styles/About.css";
 import Box from "@mui/material/Box";
@@ -8,7 +10,6 @@ import Vision from "../components/Vision";
 
 function About() {
   window.scrollTo({ top: 0 });
-
   const [bannerData, setBannerData] = useState({
     imagePath: "",
     filename: "",
@@ -45,7 +46,8 @@ function About() {
     }
 
     fetchData();
-  }, []);
+  }, []); // Empty dependency array means this effect runs once when the component mounts
+
   return (
     <div>
       <Banner bannerImage={bannerData.filename} title={bannerData.title} />
