@@ -152,14 +152,15 @@ export default function SetAppointmentForm(props) {
           component="h1"
           variant="h5"
           sx={{
-            color: "#83948a",
             fontWeight: "bold",
             display: "flex",
             alignItems: "center",
             my: 2,
           }}
         >
-          <EventAvailableIcon sx={{ mr: 2, verticalAlign: "middle" }} />
+          <EventAvailableIcon
+            sx={{ color: "#83948a", mr: 2, verticalAlign: "middle" }}
+          />
           Set an Appointment
         </Typography>
         {isMobile && (
