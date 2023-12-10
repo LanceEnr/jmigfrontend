@@ -3,10 +3,31 @@ import Banner from "../components/Banner";
 import "../styles/About.css";
 import Box from "@mui/material/Box";
 
-import AboutData, { fetchAboutData } from "./cmshelper/cms";
 import Mission from "../components/Mission";
 import Vision from "../components/Vision";
-import { fetchBannerDataAbout } from "./cmshelper/cms";
+
+async function fetchBannerDataAbout() {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-category-values/About Page`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching banner:", error);
+    throw error;
+  }
+}
+async function fetchAboutData() {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-about`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching about:", error);
+    throw error;
+  }
+}
 
 const valuesData = await fetchBannerDataAbout();
 const imagePath = valuesData._image;
