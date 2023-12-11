@@ -9,16 +9,35 @@ import {
   Box,
   Container,
 } from "@mui/material";
-import HomeIcon from "@mui/icons-material/Home";
-import PhoneIcon from "@mui/icons-material/Phone";
-import EmailIcon from "@mui/icons-material/Email";
-import BannerImage from "../assets/contact.webp";
+
 import Banner from "../components/Banner";
 import { toast } from "react-toastify";
-import { fetchContactData } from "./cmshelper/cms";
+
 import ProductCTA from "../components/ProductCTA";
 import ContactValues from "../components/ContactValues";
-import { fetchBannerDataContact } from "./cmshelper/cms";
+
+async function fetchContactData() {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-contact`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching contact:", error);
+    throw error;
+  }
+}
+async function fetchBannerDataContact() {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-category-values/Contact Page`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching banner:", error);
+    throw error;
+  }
+}
 
 const valuesData = await fetchBannerDataContact();
 const imagePath = valuesData._image;

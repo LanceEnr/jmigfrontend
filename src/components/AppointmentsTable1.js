@@ -161,10 +161,12 @@ export default function AppointmentsTable1(props) {
   const [appointments, setAppointments] = useState([]);
   useEffect(() => {
     const storedUsername = localStorage.getItem("userName");
+
     if (storedUsername) {
       axios
         .get(`http://localhost:3001/appointment?userName=${storedUsername}`)
         .then((response) => {
+          console.log(response.data);
           setAppointments(response.data);
         })
         .catch((error) => {

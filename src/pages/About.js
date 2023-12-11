@@ -1,55 +1,44 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; // Make sure to import axios
-
 import Banner from "../components/Banner";
 import "../styles/About.css";
 import Box from "@mui/material/Box";
-
+import axios from "axios";
 import Mission from "../components/Mission";
 import Vision from "../components/Vision";
 
+async function fetchAboutData() {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-about`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching about:", error);
+    throw error;
+  }
+}
+async function fetchBannerDataAbout() {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-category-values/About Page`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching banner:", error);
+    throw error;
+  }
+}
+
+const valuesData = await fetchBannerDataAbout();
+const imagePath = valuesData._image;
+const filename = imagePath.substring(imagePath.lastIndexOf("\\") + 1);
+
 function About() {
-  const [bannerData, setBannerData] = useState({
-    imagePath: "",
-    filename: "",
-    title: "",
-  });
-
-  const [vision, setVision] = useState("");
-  const [mission, setMission] = useState("");
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const bannerResponse = await axios.get(
-          `${process.env.REACT_APP_API_URL}/fetch-category-values/About Page`
-        );
-        const aboutResponse = await axios.get(
-          `${process.env.REACT_APP_API_URL}/fetch-about`
-        );
-
-        const bannerData = {
-          imagePath: bannerResponse.data._image,
-          filename: bannerResponse.data._image.substring(
-            bannerResponse.data._image.lastIndexOf("\\") + 1
-          ),
-          title: bannerResponse.data._heading,
-        };
-
-        setBannerData(bannerData);
-        setVision(aboutResponse.data._vision);
-        setMission(aboutResponse.data._mission);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-
-    fetchData();
-  }, []); // Empty dependency array means this effect runs once when the component mounts
+  window.scrollTo({ top: 0 });
 
   return (
     <div>
-      <Banner bannerImage={bannerData.filename} title={bannerData.title} />
+      <Banner bannerImage={filename} title={valuesData._heading} />
       <Mission />
       <Box sx={{ mt: 3 }}>
         <Vision />

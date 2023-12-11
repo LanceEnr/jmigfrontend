@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Avatar, Button } from "@mui/material";
-
+import axios from "axios";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
@@ -10,7 +10,18 @@ import VerifiedOutlinedIcon from "@mui/icons-material/VerifiedOutlined";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CurvyLines from "../assets/appCurvyLines.webp";
-import { fetchContactData } from "../components/cms";
+
+async function fetchContactData() {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-contact`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching contact:", error);
+    throw error;
+  }
+}
 
 const item = {
   display: "flex",

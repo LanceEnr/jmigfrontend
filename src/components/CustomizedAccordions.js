@@ -6,7 +6,7 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import { TextField, Typography, Box, InputAdornment } from "@mui/material";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
-import { rowsFaqs } from "../pages/cmshelper/cms";
+import axios from "axios";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -58,6 +58,30 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   padding: theme.spacing(2),
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
+const fetchFAQData = async () => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/get-faq`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+};
+
+// Function to transform the data into the desired format
+const transformFAQData = (data) => {
+  return data.map((item) => ({
+    id: item._faqNum,
+    title: item._question,
+    content: item._answer,
+    image: item._image,
+  }));
+};
+
+// Fetch and transform the data for outgoing inventory
+const rowsFaqs = transformFAQData(await fetchFAQData());
 
 export default function CustomizedAccordions() {
   const [expanded, setExpanded] = React.useState("");

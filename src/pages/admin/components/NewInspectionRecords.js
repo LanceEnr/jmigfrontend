@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Chip from "@mui/material/Chip";
 import {
   DataGrid,
@@ -14,8 +14,50 @@ import {
 } from "../helpers/data";
 import { alpha, styled } from "@mui/material/styles";
 import { toast } from "react-toastify";
-
+import { Link, useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
+
+const transformInspectionRecordsData = (data) => {
+  const transformedData = [];
+  if (data) {
+    for (const uid in data) {
+      if (data.hasOwnProperty(uid)) {
+        const userData = data[uid];
+
+        for (const id in userData) {
+          if (userData.hasOwnProperty(id)) {
+            const inspectionData = userData[id];
+
+            const mappedData = {
+              uid: uid,
+              id: id,
+              plateNo: inspectionData.plateNo,
+              inspectionType: inspectionData.inspectionType,
+              nextInspectionDate: new Date(inspectionData.nextInspectionDate),
+              verdict: inspectionData.verdict,
+            };
+
+            transformedData.push(mappedData);
+          }
+        }
+      }
+    }
+  }
+
+  return transformedData;
+};
+
+const fetchInspectionRecords = async () => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-inspectionrecords`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+};
 
 const ODD_OPACITY = 0.2;
 
@@ -56,6 +98,8 @@ export default function NewInspectionRecords() {
   const [open, setOpen] = React.useState(false);
   const [action, setAction] = React.useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
+  const [rowsInspectionRecords, setrowsInspectionRecords] = useState([]);
+  const navigate = useNavigate();
 
   const handleClickOpen = (action, row) => {
     setAction(action);
@@ -87,6 +131,19 @@ export default function NewInspectionRecords() {
       toast.error("An error occurred while deleting the record");
     }
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchInspectionRecords();
+        const transformedData = transformInspectionRecordsData(data);
+        setrowsInspectionRecords(transformedData);
+      } catch (error) {
+        console.error("Error fetching and transforming data:", error);
+      }
+    };
+
+    fetchData();
+  }, [navigate]);
 
   return (
     <Box>

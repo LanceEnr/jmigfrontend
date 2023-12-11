@@ -6,11 +6,23 @@ import Container from "@mui/material/Container";
 import Typography from "../components/common/Typography";
 import Avatar from "@mui/material/Avatar";
 import LogoGravasend from "../assets/LogoGravasend.webp";
-
+import axios from "axios";
 import PhoneIcon from "@mui/icons-material/Phone";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import MapsUgcOutlinedIcon from "@mui/icons-material/MapsUgcOutlined";
-import { fetchContactData } from "../components/cms";
+
+async function fetchContactData() {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-contact`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching contact:", error);
+    throw error;
+  }
+}
+
 function Copyright() {
   return (
     <React.Fragment>

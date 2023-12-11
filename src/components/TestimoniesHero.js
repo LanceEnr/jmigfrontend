@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Testimonial, { fetchTestimonialData } from "../pages/cmshelper/cms";
+
 import {
   Card,
   CardContent,
@@ -11,6 +11,17 @@ import {
 import Rating from "@mui/material/Rating";
 import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 
+async function fetchTestimonialData() {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-testimonials`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching testimonials:", error);
+    throw error;
+  }
+}
 export default function TestimoniesHero() {
   const [rating1, setRating1] = useState("");
   const [fullName1, setFullname1] = useState("");

@@ -55,6 +55,7 @@ export default function ProfileInfo(props) {
 
   const handleConfirmChange = async (event) => {
     event.preventDefault();
+
     const formData = new FormData();
     formData.append("_userName", storedUsername);
     formData.append("image", uploadedImage);

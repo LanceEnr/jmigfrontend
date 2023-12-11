@@ -140,62 +140,6 @@ function Inspection() {
                       } catch (error) {
                         console.error("Inspection check failed", error);
                       }
-                    } else if (
-                      currentDate <= oneWeekBefore &&
-                      verdict === "Pending"
-                    ) {
-                      try {
-                        const response = axios.post(
-                          `${process.env.REACT_APP_API_URL}/inspection-notif2`,
-                          {
-                            plateNo,
-                            uid,
-                            id,
-                            inspectionType,
-                            verdict: "Pending",
-                            date: formattedDate,
-                            duration: "1 week",
-                          }
-                        );
-
-                        console.log(
-                          "Inspection check successfully",
-                          response.data
-                        );
-                      } catch (error) {
-                        console.error("Inspection check failed", error);
-                      }
-                      toast.warning(
-                        `Inspection due for ${upcomingInspections.plateNo} in one week. Inspection Date: ${nextInspectionDate}`
-                      );
-                    } else if (
-                      currentDate <= threeDaysBefore &&
-                      verdict === "Pending"
-                    ) {
-                      try {
-                        const response = axios.post(
-                          `${process.env.REACT_APP_API_URL}/inspection-notif2`,
-                          {
-                            plateNo,
-                            uid,
-                            id,
-                            inspectionType,
-                            verdict: "Pending",
-                            date: formattedDate,
-                            duration: "3 days",
-                          }
-                        );
-
-                        console.log(
-                          "Inspection check successfully",
-                          response.data
-                        );
-                      } catch (error) {
-                        console.error("Inspection check failed", error);
-                      }
-                      toast.warning(
-                        `Inspection due for ${upcomingInspections.plateNo} in 3 days. Inspection Date: ${nextInspectionDate}`
-                      );
                     }
                   }
                 }

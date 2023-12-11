@@ -511,14 +511,12 @@ const JobOrderSystem = () => {
         const jobOrdersResponse = await axios.get(
           `${process.env.REACT_APP_API_URL}/fetch-job-orders`
         );
+
         const jobRecordsResponse = await axios.get(
           `${process.env.REACT_APP_API_URL}/fetch-job-records`
         );
 
-        if (
-          jobOrdersResponse.status === 200 &&
-          jobRecordsResponse.status === 200
-        ) {
+        if (jobOrdersResponse.status === 200) {
           const jobOrdersData = jobOrdersResponse.data;
           const jobRecordsData = jobRecordsResponse.data;
 
