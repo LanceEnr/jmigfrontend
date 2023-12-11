@@ -19,7 +19,7 @@ import { fetchProfilePic2 } from "../../../components/cms";
 
 const storedUsername = localStorage.getItem("adminUsername");
 const valuesData = await fetchProfilePic2(storedUsername);
-//const imagePath = valuesData._profilePicture;
+const imagePath = valuesData._profilePicture;
 //const filename = imagePath.substring(imagePath.lastIndexOf("\\") + 1);
 // try {
 //   const valuesData = await fetchProfilePic2(storedUsername);
@@ -59,7 +59,7 @@ export default function AdminProfileCard({ profile }) {
     formData.append("image", uploadedImage);
 
     try {
-      const response = await axios.put(
+      const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/update-user-profilepic2`,
         formData
       );
@@ -118,7 +118,7 @@ export default function AdminProfileCard({ profile }) {
       >
         <Avatar
           alt={profile.name}
-          //src={require(`../../images/profile/${filename}`)}
+          src={imagePath}
           sx={{
             width: 100,
             height: 100,

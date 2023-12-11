@@ -314,6 +314,23 @@ export default function NewManageOrders() {
               size="small"
             />
           );
+        } else if (params.value === "Completed") {
+          return (
+            <Chip
+              label={
+                <Typography
+                  sx={{
+                    fontSize: "10px",
+                    color: "info.dark",
+                  }}
+                >
+                  Completed
+                </Typography>
+              }
+              sx={{ bgcolor: "#8dd290" }}
+              size="small"
+            />
+          );
         } else if (params.value === "Fetch from quarry") {
           return (
             <Chip

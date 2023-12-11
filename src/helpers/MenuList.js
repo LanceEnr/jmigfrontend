@@ -33,7 +33,7 @@ const transformListingData = async (data) => {
     data.map(async (item) => {
       const imageFileName =
         item._imgPath && item._imgPath.length > 0
-          ? item._imgPath[0].substring(item._imgPath[0].lastIndexOf("\\") + 1)
+          ? item._imgPath[0].substring(item._imgPath[0] + 1)
           : "defaultImage.jpg";
 
       try {
@@ -44,7 +44,7 @@ const transformListingData = async (data) => {
 
         // Filter stocks for Mindanao
         const mindanaoStocks = stocks.filter(
-          (stock) => stock._location.toLowerCase() === "mindanao ave."
+          (stock) => stock._location.toLowerCase() === "mindanao avenue"
         );
 
         let status;
@@ -78,7 +78,7 @@ const transformListingData = async (data) => {
 
         return {
           name: item._listingName,
-          image: require(`../images/listings/${imageFileName}`),
+          image: imageFileName,
           price: item._listingPrice,
           status: status,
           color: color,
@@ -88,7 +88,7 @@ const transformListingData = async (data) => {
         console.error("Error fetching stocks:", error);
         return {
           name: item._listingName,
-          image: require(`../images/listings/${imageFileName}`),
+          image: imageFileName,
           price: item._listingPrice,
           status: "Error fetching stocks",
         };

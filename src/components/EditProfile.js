@@ -29,7 +29,7 @@ import { fetchProfilePic } from "../components/cms";
 
 const storedUsername = localStorage.getItem("userName");
 const valuesData = await fetchProfilePic(storedUsername);
-//const imagePath = valuesData._profilePicture;
+const imagePath = valuesData._profilePicture;
 //const filename = imagePath.substring(imagePath.lastIndexOf("\\") + 1);
 
 export default function ProfileInfo(props) {
@@ -61,7 +61,7 @@ export default function ProfileInfo(props) {
     formData.append("image", uploadedImage);
 
     try {
-      const response = await axios.put(
+      const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/update-user-profilepic`,
         formData
       );
@@ -348,7 +348,7 @@ export default function ProfileInfo(props) {
                     <Grid item xs={3}>
                       <Avatar
                         alt={profile.name}
-                        // src={require(`../images/profile/${filename}`)}
+                        src={imagePath}
                         //src={ProfilePic}
                         sx={{
                           width: 40,

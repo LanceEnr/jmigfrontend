@@ -16,8 +16,7 @@ import { fetchProfilePic } from "../components/cms";
 
 const storedUsername = localStorage.getItem("userName");
 const valuesData = await fetchProfilePic(storedUsername);
-//const imagePath = valuesData._profilePicture;
-//const filename = imagePath.substring(imagePath.lastIndexOf("\\") + 1);
+const imagePath = valuesData._profilePicture;
 
 export default function ProfileInfo(props) {
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -101,7 +100,7 @@ export default function ProfileInfo(props) {
           >
             <Avatar
               alt={userName}
-              //   src={require(`../images/profile/${filename}`)}
+              src={imagePath}
               style={{ width: "60px", height: "60px", marginLeft: "16px" }}
             />
             <Typography variant="h5" style={{ marginLeft: "16px" }}>

@@ -73,11 +73,11 @@ const transformListingData2 = (data) => {
   return data.slice(0, 3).map((item, index) => {
     const imageFileName =
       item._imgPath && item._imgPath.length > 0
-        ? item._imgPath[0].substring(item._imgPath[0].lastIndexOf("\\") + 1)
+        ? item._imgPath[0].substring()
         : "";
 
     return {
-      url: require(`../images/listings/${imageFileName}`),
+      url: imageFileName,
       title: item._listingName || `Default Title ${index + 1}`,
       width: index === 1 ? "20%" : "40%",
     };

@@ -124,7 +124,7 @@ const ProductDetails = () => {
 
           // Filter stocks for Mindanao
           const mindanaoStocks = stocks.filter(
-            (stock) => stock._location.toLowerCase() === "mindanao ave."
+            (stock) => stock._location.toLowerCase() === "mindanao avenue"
           );
           setMindanaoStocks(mindanaoStocks);
         } else {
@@ -157,9 +157,7 @@ const ProductDetails = () => {
                 <div key={index} className="carousel-slide">
                   <img
                     alt={`Sand Image ${index + 1}`}
-                    src={require(`../images/listings/${image.substring(
-                      image.lastIndexOf("\\") + 1
-                    )}`)}
+                    src={image}
                     width="100%"
                     height="100%"
                     style={{
@@ -179,12 +177,7 @@ const ProductDetails = () => {
                   }`}
                   onClick={() => handleThumbnailClick(index)}
                 >
-                  <img
-                    alt={`Thumbnail ${index + 1}`}
-                    src={require(`../images/listings/${image.substring(
-                      image.lastIndexOf("\\") + 1
-                    )}`)}
-                  />
+                  <img alt={`Thumbnail ${index + 1}`} src={image} />
                 </div>
               ))}
             </Box>
@@ -238,7 +231,7 @@ const ProductDetails = () => {
 
               <Box display="flex" flexDirection="column" mt={2}>
                 <Typography variant="body2" color="text.secondary">
-                  <strong>Mindanao Ave:</strong>{" "}
+                  <strong>Mindanao Avenue:</strong>{" "}
                   {mindanaoStocks.map((stock) => stock._quantity) > 0
                     ? `${mindanaoStocks.map(
                         (stock) => stock._quantity

@@ -403,6 +403,7 @@ const ValidationDialog = ({
 }) => {
   const handleConfirm = async () => {
     try {
+      console.log(formData);
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/addJob`,
         formData

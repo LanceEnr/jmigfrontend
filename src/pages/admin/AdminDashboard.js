@@ -58,6 +58,21 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SellIcon from "@mui/icons-material/Sell";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 
+async function fetchProfilePic2(_userName) {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-profile-pic2/${_userName}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching banner:", error);
+    throw error;
+  }
+}
+
+const userName = localStorage.getItem("adminUsername");
+const valuesData = await fetchProfilePic2(userName);
+const imagePath = valuesData._profilePicture;
 const StyledBox = styled(Box)(({ theme }) => ({
   "&::-webkit-scrollbar": {
     width: "0.4em",
@@ -660,7 +675,7 @@ export default function AdminDashboard() {
             <Box sx={{ ml: 2 }}>
               <Tooltip title="Settings">
                 <IconButton onClick={handleOpenSettingsMenu} sx={{ p: 0 }}>
-                  <Avatar />
+                  <Avatar alt={userName} src={imagePath} />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -707,12 +722,9 @@ export default function AdminDashboard() {
                   to="/adminprofileinfo"
                 >
                   <ListItemIcon>
-                    <Avatar
-                    // alt={userName}
-                    // src={require(`../images/profile/${filename}`)}
-                    />
+                    <Avatar alt={userName} src={imagePath} />
                   </ListItemIcon>
-                  Username
+                  {userName}
                 </MenuItem>
                 <Divider />
 

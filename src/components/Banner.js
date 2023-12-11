@@ -4,7 +4,7 @@ import Typography from "./common/Typography";
 import { toast } from "react-toastify";
 
 const Banner = ({ bannerImage, title, text }) => {
-  const image = require(`../images/banner/uploads/${bannerImage}`);
+  const image = bannerImage;
   return (
     <div
       className="aboutImage"

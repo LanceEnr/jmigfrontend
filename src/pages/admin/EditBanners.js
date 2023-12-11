@@ -88,7 +88,11 @@ export default function EditBanners() {
       );
 
       toast.success("Banner modified successfully");
-      console.log("Form submitted successfully", response.data);
+      setCategory("");
+      setSelectedFile("");
+      setFilePreview("");
+      setHeading("");
+      setSubheading("");
     } catch (error) {
       toast.error("Modification failed, please try again!");
       console.error("Form submission failed", error);

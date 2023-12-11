@@ -83,7 +83,7 @@ export default function EditListing({ onBackClick }) {
     async function fetchProducts() {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/get-listing`
+          `${process.env.REACT_APP_API_URL}/get-listing2`
         );
         if (response.ok) {
           const data = await response.json();

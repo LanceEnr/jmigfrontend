@@ -91,7 +91,7 @@ export default function EditOrder() {
       );
 
       console.log("Order edited successfully", response.data);
-      toast.success("Order added successfully");
+      toast.success("Order edited successfully");
       navigate("/adminmanageorders");
     } catch (error) {
       console.error("Order edit failed", error);

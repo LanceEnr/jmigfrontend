@@ -30,7 +30,13 @@ function TripMetricsReport() {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/fetch-DriverName/${uid}`
       );
-      return response.data.driverName;
+
+      const fullDriverName = response.data.driverName;
+
+      // Extract the first word from the full driver name
+      const firstWord = fullDriverName.split(" ")[0];
+
+      return firstWord;
     } catch (error) {
       console.error(`Error fetching driver name for UID ${uid}:`, error);
       return null;
@@ -76,10 +82,15 @@ function TripMetricsReport() {
     for (const uid in averages) {
       const uidData = averages[uid];
 
-      const averageSpeed = uidData.totalSpeed / uidData.count;
-      const averageHarshBraking = uidData.totalHarshBraking / uidData.count;
-      const averageSuddenAcceleration =
-        uidData.totalSuddenAcceleration / uidData.count;
+      const averageSpeed = +(uidData.totalSpeed / uidData.count).toFixed(2);
+
+      const averageHarshBraking = +(
+        uidData.totalHarshBraking / uidData.count
+      ).toFixed(2);
+
+      const averageSuddenAcceleration = +(
+        uidData.totalSuddenAcceleration / uidData.count
+      ).toFixed(2);
 
       averages[uid] = {
         averageSpeed,
@@ -118,7 +129,7 @@ function TripMetricsReport() {
     };
 
     fetchData();
-  }, [calculateAverages]);
+  }, []);
 
   // Add the calculateColor function here
   const calculateColor = (value) => {

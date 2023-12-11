@@ -62,14 +62,14 @@ export default function AdminProfileInfo(props) {
   };
 
   const handleConfirmChange = async (event) => {
-    //event.preventDefault();
+    event.preventDefault();
     console.log(userName);
     const formData = new FormData();
     formData.append("_userName", uname);
     formData.append("image", uploadedImage);
 
     try {
-      const response = await axios.put(
+      const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/update-user-profilepic2`,
         formData
       );
