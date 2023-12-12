@@ -117,7 +117,7 @@ function SidePanel({ setActiveComponent }) {
       <List sx={{ padding: "16px" }}>
         <ListItem sx={{ marginBottom: "16px" }}>
           <Avatar
-            alt={userName}
+            alt={storedUsername}
             //  src={require(`../images/profile/${filename}`)}
             sx={{ width: 64, height: 64, marginRight: "16px" }}
           />
@@ -132,7 +132,7 @@ function SidePanel({ setActiveComponent }) {
               variant="body2"
               sx={{ marginBottom: "8px", color: "#83948a", fontWeight: "bold" }}
             >
-              {userName}
+              {storedUsername}
             </Typography>
           </div>
         </ListItem>
