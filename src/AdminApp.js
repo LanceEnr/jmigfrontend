@@ -83,8 +83,12 @@ const CurrenInventoryReport = lazy(() =>
   import("./pages/admin/components/CurrentInventoryReport")
 );
 
+const isAdminTokenExists = document.cookie
+  .split("; ")
+  .some((cookie) => cookie.startsWith("adminToken="));
+
 const initialState = {
-  isAuthenticated: !!localStorage.getItem("adminToken"),
+  isAuthenticated: isAdminTokenExists,
 };
 
 function AdminApp() {
@@ -92,7 +96,11 @@ function AdminApp() {
   const isAuthenticated = authState.isAuthenticated;
 
   const handleLogout = () => {
-    localStorage.removeItem("adminToken");
+    // Remove the adminToken cookie
+    document.cookie =
+      "adminToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; SameSite=Strict";
+
+    // Dispatch the logout action
     authDispatch({ type: "LOGOUT" });
   };
 

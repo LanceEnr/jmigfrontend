@@ -48,12 +48,18 @@ export default function AdminLogin({ dispatch }) {
     rememberMe: false,
   });
   useEffect(() => {
-    const rememberMeData = localStorage.getItem("rememberMeData");
-    console.log("Remember Me Data from localStorage:", rememberMeData);
+    const rememberMeData = document.cookie
+      .split("; ")
+      .find((cookie) => cookie.startsWith("rememberMeData="))
+      ?.split("=")[1];
+
+    console.log("Remember Me Data from cookies:", rememberMeData);
+
     if (rememberMeData) {
       setLoginData(JSON.parse(rememberMeData));
     }
   }, []);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setLoginData({
@@ -80,13 +86,16 @@ export default function AdminLogin({ dispatch }) {
       if (response.status === 200) {
         console.log("Login successful", response.data);
         const { adminToken, adminUsername } = response.data;
-        localStorage.setItem("adminToken", adminToken);
-        localStorage.setItem("adminUsername", adminUsername);
+        document.cookie = `adminToken=${adminToken}; Secure; SameSite=Strict`;
+        document.cookie = `adminUsername=${adminUsername}; Secure; SameSite=Strict`;
 
         if (loginData.rememberMe) {
-          localStorage.setItem("rememberMeData", JSON.stringify(loginData));
+          // Set a separate cookie for the rememberMeData
+          document.cookie = `rememberMeData=${encodeURIComponent(
+            JSON.stringify(loginData)
+          )}; Secure; SameSite=Strict`;
         } else {
-          localStorage.removeItem("rememberMeData");
+          document.cookie = `rememberMeData=; expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; SameSite=Strict`;
         }
 
         toast.success("Login successful", {

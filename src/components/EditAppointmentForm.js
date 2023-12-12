@@ -31,7 +31,11 @@ import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 
 export default function EditAppointmentForm(props) {
   const isMobile = useMediaQuery("(max-width:600px)");
-  const userName = localStorage.getItem("userName");
+  const userName = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("userName="))
+    ?.split("=")[1];
+
   const appointmentNum = props.appointmentNum;
   const [userData, setUserData] = useState({
     First: "",
@@ -44,7 +48,11 @@ export default function EditAppointmentForm(props) {
     IsAM: true,
   });
   useEffect(() => {
-    const storedUsername = localStorage.getItem("userName");
+    const storedUsername = document.cookie
+      .split("; ")
+      .find((cookie) => cookie.startsWith("userName="))
+      ?.split("=")[1];
+
     axios
       .get(`${process.env.REACT_APP_API_URL}/user?userName=${storedUsername}`)
       .then((response) => {
@@ -83,7 +91,11 @@ export default function EditAppointmentForm(props) {
   const formattedDate = currentDate.toLocaleString("en-US", options);
 
   const handleUpdateAppointment = () => {
-    const userName = localStorage.getItem("userName");
+    const userName = document.cookie
+      .split("; ")
+      .find((cookie) => cookie.startsWith("userName="))
+      ?.split("=")[1];
+
     const appointmentNum = props.appointmentNum;
     const { Agenda, Schedule, First, Last, Email, Phone, time, IsAM } =
       userData;

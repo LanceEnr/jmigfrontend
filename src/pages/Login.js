@@ -57,7 +57,11 @@ export default function Login({ dispatch }) {
   }, []);
   useEffect(() => {
     if (rememberMe && loginData._userName) {
-      const storedPassword = localStorage.getItem(loginData._userName);
+      const storedPassword = document.cookie
+        .split("; ")
+        .find((cookie) => cookie.startsWith(`${loginData._userName}=`))
+        ?.split("=")[1];
+
       if (storedPassword) {
         setLoginData({ ...loginData, _pwd: storedPassword });
       }
@@ -93,11 +97,11 @@ export default function Login({ dispatch }) {
         console.log("Login successful", response.data);
         const { token, userName } = response.data;
         console.log(userName);
-        localStorage.setItem("token", token);
-        localStorage.setItem("userName", userName);
+        document.cookie = `token=${token}; Secure; SameSite=Strict`;
+        document.cookie = `userName=${userName}; Secure; SameSite=Strict`;
 
         if (rememberMe && loginData._userName) {
-          localStorage.setItem(loginData._userName, loginData._pwd);
+          document.cookie = `${loginData._userName}=${loginData._pwd}; Secure; SameSite=Strict`;
         }
 
         document.cookie = `rememberMe=${loginData.rememberMe}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/`;

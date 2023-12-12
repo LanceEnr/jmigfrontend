@@ -27,7 +27,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import { fetchProfilePic } from "../components/cms";
 
-const storedUsername = localStorage.getItem("userName");
+const storedUsername = document.cookie
+  .split("; ")
+  .find((cookie) => cookie.startsWith("userName="))
+  ?.split("=")[1];
+
 const valuesData = await fetchProfilePic(storedUsername);
 const imagePath = valuesData._profilePicture;
 //const filename = imagePath.substring(imagePath.lastIndexOf("\\") + 1);
@@ -51,7 +55,10 @@ export default function ProfileInfo(props) {
     setDialogOpen(false);
   };
 
-  const storedUsername = localStorage.getItem("userName");
+  const storedUsername = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("userName="))
+    ?.split("=")[1];
 
   const handleConfirmChange = async (event) => {
     event.preventDefault();
@@ -89,7 +96,11 @@ export default function ProfileInfo(props) {
     NewPassword: "",
   });
   useEffect(() => {
-    const storedUsername = localStorage.getItem("userName");
+    const storedUsername = document.cookie
+      .split("; ")
+      .find((cookie) => cookie.startsWith("userName="))
+      ?.split("=")[1];
+
     axios
       .get(
         `${process.env.REACT_APP_API_URL}/setuser?userName=${storedUsername}`
@@ -126,7 +137,11 @@ export default function ProfileInfo(props) {
   };
 
   const handlePasswordChange = () => {
-    const userName = localStorage.getItem("userName");
+    const userName = document.cookie
+      .split("; ")
+      .find((cookie) => cookie.startsWith("userName="))
+      ?.split("=")[1];
+
     const { CurrentPassword, NewPassword } = userData;
 
     axios
@@ -179,7 +194,11 @@ export default function ProfileInfo(props) {
   };
 
   const handlePhoneAddressChange = () => {
-    const userName = localStorage.getItem("userName");
+    const userName = document.cookie
+      .split("; ")
+      .find((cookie) => cookie.startsWith("userName="))
+      ?.split("=")[1];
+
     const { Phone, Address } = userData;
     const phoneNumberRegex = /^(09|\+639)\d{9}$/;
     if (!phoneNumberRegex.test(Phone)) {
@@ -202,7 +221,11 @@ export default function ProfileInfo(props) {
         console.error("Error updating phone and address:", error);
       });
   };
-  const userName = localStorage.getItem("userName");
+  const userName = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("userName="))
+    ?.split("=")[1];
+
   return (
     <List
       sx={{

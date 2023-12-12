@@ -25,28 +25,33 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-// import { fetchProfilePic2 } from "../../components/cms";
+import { fetchProfilePic2 } from "../../components/cms";
 
-// const filename = "";
-// try {
-//   const storedUsername = localStorage.getItem("adminUsername");
-//   const valuesData = await fetchProfilePic2(storedUsername);
+const filename = "";
+try {
+  const storedUsername = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("adminUsername="))
+    ?.split("=")[1];
 
-//   if (valuesData) {
-//     //const imagePath = valuesData._profilePicture;
-//     //filename = imagePath.substring(imagePath.lastIndexOf("\\") + 1);
-//   } else {
-//     console.error("Error: Unable to fetch profile picture data");
-//   }
-// } catch (error) {
-//   console.error("Error during fetchProfilePic:", error);
-// }
+  const valuesData = await fetchProfilePic2(storedUsername);
+
+  if (valuesData) {
+    const imagePath = valuesData._profilePicture;
+  }
+} catch (error) {
+  console.error("Error during fetchProfilePic:", error);
+}
 
 export default function AdminProfileInfo(props) {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [showPassword, setShowPassword] = useState(false);
   const [passwordInputType, setPasswordInputType] = useState("password");
-  const uname = localStorage.getItem("adminUsername");
+  const uname = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("adminUsername="))
+    ?.split("=")[1];
+
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [uploadedImage, setUploadedImage] = useState(null);
 
@@ -97,7 +102,11 @@ export default function AdminProfileInfo(props) {
     NewPassword: "",
   });
   useEffect(() => {
-    const storedUsername = localStorage.getItem("adminUsername");
+    const storedUsername = document.cookie
+      .split("; ")
+      .find((cookie) => cookie.startsWith("adminUsername="))
+      ?.split("=")[1];
+
     axios
       .get(
         `${process.env.REACT_APP_API_URL}/setuser2?userName=${storedUsername}`
@@ -134,7 +143,11 @@ export default function AdminProfileInfo(props) {
   };
 
   const handlePasswordChange = () => {
-    const userName = localStorage.getItem("adminUsername");
+    const userName = document.cookie
+      .split("; ")
+      .find((cookie) => cookie.startsWith("adminUsername="))
+      ?.split("=")[1];
+
     const { CurrentPassword, NewPassword } = userData;
 
     axios
@@ -183,7 +196,11 @@ export default function AdminProfileInfo(props) {
   };
 
   const handlePhoneAddressChange = () => {
-    const userName = localStorage.getItem("adminUsername");
+    const userName = document.cookie
+      .split("; ")
+      .find((cookie) => cookie.startsWith("adminUsername="))
+      ?.split("=")[1];
+
     const { Phone, Address } = userData;
     const phoneNumberRegex = /^(09|\+639)\d{9}$/;
     if (!phoneNumberRegex.test(Phone)) {
@@ -206,7 +223,11 @@ export default function AdminProfileInfo(props) {
         console.error("Error updating phone and address:", error);
       });
   };
-  const userName = localStorage.getItem("adminUsername");
+  const userName = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("adminUsername="))
+    ?.split("=")[1];
+
   return (
     <Box sx={{ my: 8, mx: 6 }}>
       <Typography

@@ -32,8 +32,12 @@ const Faqs = lazy(() => import("./pages/Faqs"));
 const ProductDetails = lazy(() => import("./pages/ProductDetails"));
 const UserDashboard = lazy(() => import("./pages/UserDashboard"));
 
+const isTokenExists = document.cookie
+  .split("; ")
+  .some((cookie) => cookie.startsWith("token="));
+
 const initialState = {
-  isAuthenticated: !!localStorage.getItem("token"),
+  isAuthenticated: isTokenExists,
 };
 
 function App() {
@@ -42,10 +46,17 @@ function App() {
 
   const isAuthenticated = authState.isAuthenticated;
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    // Remove the "token" cookie
+    document.cookie =
+      "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; SameSite=Strict";
+
+    // Dispatch the logout action
     authDispatch({ type: "LOGOUT" });
   };
-  const isAdmin = !!localStorage.getItem("adminToken"); // Check for admin token
+
+  const isAdmin = document.cookie
+    .split("; ")
+    .some((cookie) => cookie.startsWith("adminToken="));
 
   return (
     <div className="App">

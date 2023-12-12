@@ -70,7 +70,11 @@ async function fetchProfilePic2(_userName) {
   }
 }
 
-const userName = localStorage.getItem("adminUsername");
+const userName = document.cookie
+  .split("; ")
+  .find((cookie) => cookie.startsWith("adminUsername="))
+  ?.split("=")[1];
+
 const valuesData = await fetchProfilePic2(userName);
 const imagePath = valuesData._profilePicture;
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -181,7 +185,10 @@ const timeAgo = (timestamp) => {
 };
 
 const fetchNotifications = async () => {
-  const storedUsername = localStorage.getItem("userName");
+  const storedUsername = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("userName="))
+    ?.split("=")[1];
 
   try {
     const response = await axios.get(
@@ -259,8 +266,11 @@ export default function AdminDashboard() {
     }
   };
   const handleLogout = () => {
-    localStorage.removeItem("adminToken");
-    localStorage.removeItem("adminUserName");
+    document.cookie =
+      "adminToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; SameSite=Strict";
+    document.cookie =
+      "adminUserName=; expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; SameSite=Strict";
+
     dispatch({ type: "LOGOUT" });
     toast.success("Logout successfully", {
       autoClose: 50,
@@ -730,7 +740,9 @@ export default function AdminDashboard() {
 
                 <MenuItem
                   onClick={() => {
-                    localStorage.removeItem("adminToken");
+                    document.cookie =
+                      "adminToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; SameSite=Strict";
+
                     dispatch({ type: "LOGOUT" });
                     toast.success("Logout successfully", {
                       autoClose: 50,

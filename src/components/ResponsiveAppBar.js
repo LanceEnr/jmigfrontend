@@ -41,7 +41,11 @@ import { fetchProfilePic } from "../components/cms";
 import LogoGravasend from "../assets/LogoGravasend.webp";
 import Logout from "@mui/icons-material/Logout";
 
-const storedUsername = localStorage.getItem("userName");
+const storedUsername = document.cookie
+  .split("; ")
+  .find((cookie) => cookie.startsWith("userName="))
+  ?.split("=")[1];
+
 const valuesData = await fetchProfilePic(storedUsername);
 const imagePath = valuesData._profilePicture;
 
@@ -66,7 +70,10 @@ const ColoredBadge = withStyles({
   },
 })(Badge);
 
-const token = localStorage.getItem("token");
+const token = document.cookie
+  .split("; ")
+  .find((cookie) => cookie.startsWith("token="))
+  ?.split("=")[1];
 
 const pages = ["Home", "Products", "FAQs", "About", "Contact"];
 const mobilePages = [
@@ -106,10 +113,17 @@ const timeAgo = (timestamp) => {
   }
 };
 
-const userName = localStorage.getItem("userName");
+const userName = document.cookie
+  .split("; ")
+  .find((cookie) => cookie.startsWith("userName="))
+  ?.split("=")[1];
+
 const name = "";
 const fetchNotifications = async () => {
-  const storedUsername = localStorage.getItem("userName");
+  const storedUsername = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("userName="))
+    ?.split("=")[1];
 
   try {
     const response = await axios.get(
@@ -137,7 +151,10 @@ const notifications = transformNotification(await fetchNotifications());
 function ResponsiveAppBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const hasToken = localStorage.getItem("token") !== null;
+  const hasToken = document.cookie
+    .split("; ")
+    .some((cookie) => cookie.startsWith("token="));
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElNotifications, setAnchorElNotifications] =
     React.useState(null);
@@ -166,7 +183,11 @@ function ResponsiveAppBar() {
   const handleCloseSettingsMenu = () => {
     setAnchorElSettings(null);
   };
-  const userName = localStorage.getItem("userName");
+  const userName = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("userName="))
+    ?.split("=")[1];
+
   return (
     <AppBar position="sticky" style={{ backgroundColor: "#EAECEA" }}>
       <Container>
@@ -485,7 +506,9 @@ function ResponsiveAppBar() {
 
                 <MenuItem
                   onClick={() => {
-                    localStorage.removeItem("token");
+                    document.cookie =
+                      "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; SameSite=Strict";
+
                     dispatch({ type: "LOGOUT" });
                     toast.success("Logout successfully", {
                       autoClose: 50,

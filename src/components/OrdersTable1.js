@@ -297,7 +297,11 @@ export default function OrdersTable1(props) {
 
   const [orders, setOrders] = useState([]);
   useEffect(() => {
-    const storedUsername = localStorage.getItem("userName");
+    const storedUsername = document.cookie
+      .split("; ")
+      .find((cookie) => cookie.startsWith("userName="))
+      ?.split("=")[1];
+
     if (storedUsername) {
       axios
         .get(

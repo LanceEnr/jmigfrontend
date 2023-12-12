@@ -17,7 +17,11 @@ import CoverPhoto from "../../../assets/coverphoto.webp";
 
 import { fetchProfilePic2 } from "../../../components/cms";
 
-const storedUsername = localStorage.getItem("adminUsername");
+const storedUsername = document.cookie
+  .split("; ")
+  .find((cookie) => cookie.startsWith("adminUsername="))
+  ?.split("=")[1];
+
 const valuesData = await fetchProfilePic2(storedUsername);
 const imagePath = valuesData._profilePicture;
 //const filename = imagePath.substring(imagePath.lastIndexOf("\\") + 1);
@@ -43,7 +47,11 @@ const Img = styled("img")({
 });
 
 export default function AdminProfileCard({ profile }) {
-  const userName = localStorage.getItem("adminUsername");
+  const userName = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("adminUsername="))
+    ?.split("=")[1];
+
   const [count, setCounts] = useState({
     totalOrders: "",
     totalAppointments: "",
@@ -86,7 +94,11 @@ export default function AdminProfileCard({ profile }) {
   };
 
   useEffect(() => {
-    const storedUsername = localStorage.getItem("adminUsername");
+    const storedUsername = document.cookie
+      .split("; ")
+      .find((cookie) => cookie.startsWith("adminUsername="))
+      ?.split("=")[1];
+
     axios
       .get(
         `${process.env.REACT_APP_API_URL}/get-counts?userName=${storedUsername}`

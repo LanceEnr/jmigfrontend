@@ -31,7 +31,11 @@ import moment from "moment";
 export default function SetAppointmentForm(props) {
   const isMobile = useMediaQuery("(max-width:600px)");
 
-  const userName = localStorage.getItem("userName");
+  const userName = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("userName="))
+    ?.split("=")[1];
+
   const [userData, setUserData] = useState({
     First: "",
     Last: "",
@@ -43,7 +47,11 @@ export default function SetAppointmentForm(props) {
     IsAM: true,
   });
   useEffect(() => {
-    const storedUsername = localStorage.getItem("userName");
+    const storedUsername = document.cookie
+      .split("; ")
+      .find((cookie) => cookie.startsWith("userName="))
+      ?.split("=")[1];
+
     axios
       .get(`${process.env.REACT_APP_API_URL}/user?userName=${storedUsername}`)
       .then((response) => {
@@ -82,7 +90,11 @@ export default function SetAppointmentForm(props) {
   const formattedDate = currentDate.toLocaleString("en-US", options);
 
   const handleSaveAppointment = () => {
-    const userName = localStorage.getItem("userName");
+    const userName = document.cookie
+      .split("; ")
+      .find((cookie) => cookie.startsWith("userName="))
+      ?.split("=")[1];
+
     const { Agenda, Schedule, First, Last, Email, Phone, time, IsAM } =
       userData;
     const formattedSchedule = moment(userData.Schedule).format("YYYY-MM-DD");

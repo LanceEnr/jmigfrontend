@@ -127,7 +127,12 @@ export default function AppointmentsTable1(props) {
     second: "2-digit",
     timeZoneName: "short",
   };
-  const storedUsername = localStorage.getItem("userName");
+
+  const storedUsername = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("userName="))
+    ?.split("=")[1];
+
   const formattedDate = currentDate.toLocaleString("en-US", options);
   const handleCancel = async (appointmentNum) => {
     axios
@@ -160,7 +165,10 @@ export default function AppointmentsTable1(props) {
   };
   const [appointments, setAppointments] = useState([]);
   useEffect(() => {
-    const storedUsername = localStorage.getItem("userName");
+    const storedUsername = document.cookie
+      .split("; ")
+      .find((cookie) => cookie.startsWith("userName="))
+      ?.split("=")[1];
 
     if (storedUsername) {
       axios

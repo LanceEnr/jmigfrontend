@@ -14,7 +14,11 @@ import UserDrawer from "./common/UserDrawer";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { fetchProfilePic } from "../components/cms";
 
-const storedUsername = localStorage.getItem("userName");
+const storedUsername = document.cookie
+  .split("; ")
+  .find((cookie) => cookie.startsWith("userName="))
+  ?.split("=")[1];
+
 const valuesData = await fetchProfilePic(storedUsername);
 const imagePath = valuesData._profilePicture;
 
@@ -34,7 +38,11 @@ export default function ProfileInfo(props) {
   });
 
   useEffect(() => {
-    const storedUsername = localStorage.getItem("userName");
+    const storedUsername = document.cookie
+      .split("; ")
+      .find((cookie) => cookie.startsWith("userName="))
+      ?.split("=")[1];
+
     axios
       .get(`${process.env.REACT_APP_API_URL}/user?userName=${storedUsername}`)
       .then((response) => {
@@ -58,7 +66,10 @@ export default function ProfileInfo(props) {
         }
       });
   }, []);
-  const userName = localStorage.getItem("userName");
+  const userName = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("userName="))
+    ?.split("=")[1];
 
   return (
     <List
