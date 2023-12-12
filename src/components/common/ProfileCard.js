@@ -8,8 +8,17 @@ import Typography from "@mui/material/Typography";
 import { styled } from "@mui/system";
 import Divider from "@mui/material/Divider";
 import CoverPhoto from "../../assets/coverphoto.webp";
-
-import { fetchProfilePic } from "../../components/cms";
+async function fetchProfilePic(_userName) {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-profile-pic/${_userName}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching banner:", error);
+    throw error;
+  }
+}
 
 const storedUsername = document.cookie
   .split("; ")

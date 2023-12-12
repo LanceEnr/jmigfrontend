@@ -12,7 +12,17 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import UserDrawer from "./common/UserDrawer";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { fetchProfilePic } from "../components/cms";
+async function fetchProfilePic(_userName) {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-profile-pic/${_userName}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching banner:", error);
+    throw error;
+  }
+}
 
 const storedUsername = document.cookie
   .split("; ")

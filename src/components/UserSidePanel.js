@@ -18,7 +18,18 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import { withStyles } from "@mui/styles";
-import { fetchProfilePic } from "../components/cms";
+
+async function fetchProfilePic(_userName) {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-profile-pic/${_userName}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching banner:", error);
+    throw error;
+  }
+}
 
 const storedUsername = document.cookie
   .split("; ")

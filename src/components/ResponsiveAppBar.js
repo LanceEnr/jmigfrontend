@@ -37,10 +37,21 @@ import StorefrontIcon from "@mui/icons-material/Storefront";
 import LiveHelpIcon from "@mui/icons-material/LiveHelp";
 import InfoIcon from "@mui/icons-material/Info";
 import MailIcon from "@mui/icons-material/Mail";
-import { fetchProfilePic } from "../components/cms";
+
 import LogoGravasend from "../assets/LogoGravasend.webp";
 import Logout from "@mui/icons-material/Logout";
 
+async function fetchProfilePic(_userName) {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-profile-pic/${_userName}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching banner:", error);
+    throw error;
+  }
+}
 const storedUsername = document.cookie
   .split("; ")
   .find((cookie) => cookie.startsWith("userName="))

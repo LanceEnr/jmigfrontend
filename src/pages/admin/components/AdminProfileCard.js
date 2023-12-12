@@ -15,7 +15,17 @@ import { styled } from "@mui/system";
 import Divider from "@mui/material/Divider";
 import CoverPhoto from "../../../assets/coverphoto.webp";
 
-import { fetchProfilePic2 } from "../../../components/cms";
+async function fetchProfilePic2(_userName) {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-profile-pic2/${_userName}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching banner:", error);
+    throw error;
+  }
+}
 
 const storedUsername = document.cookie
   .split("; ")
