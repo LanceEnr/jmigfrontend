@@ -517,35 +517,35 @@ export default function TripVerification() {
             {
               documentName: "Suspension System",
               approved: SafetyChecklistData.suspension,
-              image: SafetyChecklistData.suspensionPic,
+              image: SafetyChecklistData["0"],
             },
             {
               documentName: "Brake System",
               approved: SafetyChecklistData.brake,
-              image: SafetyChecklistData.brakePic,
+              image: SafetyChecklistData["1"],
             },
             {
               documentName: "Steering System",
               approved: SafetyChecklistData.steering,
-              image: SafetyChecklistData.steeringPic,
+              image: SafetyChecklistData["2"],
             },
             ,
             {
               documentName: "Tires and Wheels",
               approved: SafetyChecklistData.tireswheels,
-              image: SafetyChecklistData.tirewheelsPic,
+              image: SafetyChecklistData["3"],
             },
             ,
             {
               documentName: "Safety Equipments",
               approved: SafetyChecklistData.safetyequipment,
-              image: SafetyChecklistData.safetyequipmentPic,
+              image: SafetyChecklistData["4"],
             },
             ,
             {
               documentName: "Lights and Reflectors",
               approved: SafetyChecklistData.lights,
-              image: SafetyChecklistData.lightsPic,
+              image: SafetyChecklistData["5"],
             },
           ].map(({ documentName, approved, image }, index) => (
             <ListItem key={index}>
