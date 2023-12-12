@@ -25,34 +25,22 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
+// import { fetchProfilePic2 } from "../../components/cms";
 
-async function fetchProfilePic2(_userName) {
-  try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/fetch-profile-pic2/${_userName}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching banner:", error);
-    throw error;
-  }
-}
+// const filename = "";
+// try {
+//   const storedUsername = localStorage.getItem("adminUsername");
+//   const valuesData = await fetchProfilePic2(storedUsername);
 
-const filename = "";
-try {
-  const storedUsername = document.cookie
-    .split("; ")
-    .find((cookie) => cookie.startsWith("adminUsername="))
-    ?.split("=")[1];
-
-  const valuesData = await fetchProfilePic2(storedUsername);
-
-  if (valuesData) {
-    const imagePath = valuesData._profilePicture;
-  }
-} catch (error) {
-  console.error("Error during fetchProfilePic:", error);
-}
+//   if (valuesData) {
+//     //const imagePath = valuesData._profilePicture;
+//     //filename = imagePath.substring(imagePath.lastIndexOf("\\") + 1);
+//   } else {
+//     console.error("Error: Unable to fetch profile picture data");
+//   }
+// } catch (error) {
+//   console.error("Error during fetchProfilePic:", error);
+// }
 
 export default function AdminProfileInfo(props) {
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -62,7 +50,6 @@ export default function AdminProfileInfo(props) {
     .split("; ")
     .find((cookie) => cookie.startsWith("adminUsername="))
     ?.split("=")[1];
-
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [uploadedImage, setUploadedImage] = useState(null);
 
@@ -78,14 +65,14 @@ export default function AdminProfileInfo(props) {
   };
 
   const handleConfirmChange = async (event) => {
-    event.preventDefault();
+    //event.preventDefault();
     console.log(userName);
     const formData = new FormData();
     formData.append("_userName", uname);
     formData.append("image", uploadedImage);
 
     try {
-      const response = await axios.post(
+      const response = await axios.put(
         `${process.env.REACT_APP_API_URL}/update-user-profilepic2`,
         formData
       );
@@ -117,7 +104,6 @@ export default function AdminProfileInfo(props) {
       .split("; ")
       .find((cookie) => cookie.startsWith("adminUsername="))
       ?.split("=")[1];
-
     axios
       .get(
         `${process.env.REACT_APP_API_URL}/setuser2?userName=${storedUsername}`
@@ -158,7 +144,6 @@ export default function AdminProfileInfo(props) {
       .split("; ")
       .find((cookie) => cookie.startsWith("adminUsername="))
       ?.split("=")[1];
-
     const { CurrentPassword, NewPassword } = userData;
 
     axios
@@ -211,7 +196,6 @@ export default function AdminProfileInfo(props) {
       .split("; ")
       .find((cookie) => cookie.startsWith("adminUsername="))
       ?.split("=")[1];
-
     const { Phone, Address } = userData;
     const phoneNumberRegex = /^(09|\+639)\d{9}$/;
     if (!phoneNumberRegex.test(Phone)) {
@@ -238,7 +222,6 @@ export default function AdminProfileInfo(props) {
     .split("; ")
     .find((cookie) => cookie.startsWith("adminUsername="))
     ?.split("=")[1];
-
   return (
     <Box sx={{ my: 8, mx: 6 }}>
       <Typography

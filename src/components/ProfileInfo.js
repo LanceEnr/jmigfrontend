@@ -12,25 +12,12 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import UserDrawer from "./common/UserDrawer";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-async function fetchProfilePic(_userName) {
-  try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/fetch-profile-pic/${_userName}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching banner:", error);
-    throw error;
-  }
-}
+import { fetchProfilePic } from "../components/cms";
 
-const storedUsername = document.cookie
-  .split("; ")
-  .find((cookie) => cookie.startsWith("userName="))
-  ?.split("=")[1];
-
+const storedUsername = localStorage.getItem("userName");
 const valuesData = await fetchProfilePic(storedUsername);
-const imagePath = valuesData._profilePicture;
+//const imagePath = valuesData._profilePicture;
+//const filename = imagePath.substring(imagePath.lastIndexOf("\\") + 1);
 
 export default function ProfileInfo(props) {
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -48,11 +35,7 @@ export default function ProfileInfo(props) {
   });
 
   useEffect(() => {
-    const storedUsername = document.cookie
-      .split("; ")
-      .find((cookie) => cookie.startsWith("userName="))
-      ?.split("=")[1];
-
+    const storedUsername = localStorage.getItem("userName");
     axios
       .get(`${process.env.REACT_APP_API_URL}/user?userName=${storedUsername}`)
       .then((response) => {
@@ -76,10 +59,7 @@ export default function ProfileInfo(props) {
         }
       });
   }, []);
-  const userName = document.cookie
-    .split("; ")
-    .find((cookie) => cookie.startsWith("userName="))
-    ?.split("=")[1];
+  const userName = localStorage.getItem("userName");
 
   return (
     <List
@@ -121,7 +101,7 @@ export default function ProfileInfo(props) {
           >
             <Avatar
               alt={userName}
-              src={imagePath}
+              //   src={require(`../images/profile/${filename}`)}
               style={{ width: "60px", height: "60px", marginLeft: "16px" }}
             />
             <Typography variant="h5" style={{ marginLeft: "16px" }}>

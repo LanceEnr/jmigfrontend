@@ -8,17 +8,8 @@ import Typography from "@mui/material/Typography";
 import { styled } from "@mui/system";
 import Divider from "@mui/material/Divider";
 import CoverPhoto from "../../assets/coverphoto.webp";
-async function fetchProfilePic(_userName) {
-  try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/fetch-profile-pic/${_userName}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching banner:", error);
-    throw error;
-  }
-}
+
+import { fetchProfilePic } from "../../components/cms";
 
 const storedUsername = document.cookie
   .split("; ")
@@ -26,7 +17,7 @@ const storedUsername = document.cookie
   ?.split("=")[1];
 
 const valuesData = await fetchProfilePic(storedUsername);
-const imagePath = valuesData._profilePicture;
+//const imagePath = valuesData._profilePicture;
 //const filename = imagePath.substring(imagePath.lastIndexOf("\\") + 1);
 
 const Img = styled("img")({
@@ -83,7 +74,7 @@ export default function ProfileCard({ profile }) {
       >
         <Avatar
           alt={profile.name}
-          src={imagePath}
+          // src={require(`../../images/profile/${filename}`)}
           sx={{
             width: 100,
             height: 100,

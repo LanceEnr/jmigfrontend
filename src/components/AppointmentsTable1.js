@@ -172,7 +172,9 @@ export default function AppointmentsTable1(props) {
 
     if (storedUsername) {
       axios
-        .get(`http://localhost:3001/appointment?userName=${storedUsername}`)
+        .get(
+          `${process.env.REACT_APP_API_URL}/appointment?userName=${storedUsername}`
+        )
         .then((response) => {
           console.log(response.data);
           setAppointments(response.data);

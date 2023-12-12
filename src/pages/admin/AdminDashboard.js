@@ -58,25 +58,6 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SellIcon from "@mui/icons-material/Sell";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 
-async function fetchProfilePic2(_userName) {
-  try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/fetch-profile-pic2/${_userName}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching banner:", error);
-    throw error;
-  }
-}
-
-const userName = document.cookie
-  .split("; ")
-  .find((cookie) => cookie.startsWith("adminUsername="))
-  ?.split("=")[1];
-
-const valuesData = await fetchProfilePic2(userName);
-const imagePath = valuesData._profilePicture;
 const StyledBox = styled(Box)(({ theme }) => ({
   "&::-webkit-scrollbar": {
     width: "0.4em",
@@ -453,7 +434,7 @@ export default function AdminDashboard() {
           >
             <MenuIcon />
           </IconButton>
-          <Link to="/adminhome" className="unstyled-link">
+          <Link to="/" className="unstyled-link">
             <Box
               sx={{
                 display: "flex",
@@ -685,7 +666,7 @@ export default function AdminDashboard() {
             <Box sx={{ ml: 2 }}>
               <Tooltip title="Settings">
                 <IconButton onClick={handleOpenSettingsMenu} sx={{ p: 0 }}>
-                  <Avatar alt={userName} src={imagePath} />
+                  <Avatar />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -732,17 +713,18 @@ export default function AdminDashboard() {
                   to="/adminprofileinfo"
                 >
                   <ListItemIcon>
-                    <Avatar alt={userName} src={imagePath} />
+                    <Avatar
+                    // alt={userName}
+                    // src={require(`../images/profile/${filename}`)}
+                    />
                   </ListItemIcon>
-                  {userName}
+                  Username
                 </MenuItem>
                 <Divider />
 
                 <MenuItem
                   onClick={() => {
-                    document.cookie =
-                      "adminToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; SameSite=Strict";
-
+                    localStorage.removeItem("adminToken");
                     dispatch({ type: "LOGOUT" });
                     toast.success("Logout successfully", {
                       autoClose: 50,

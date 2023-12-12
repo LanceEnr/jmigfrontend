@@ -25,18 +25,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-
-async function fetchProfilePic(_userName) {
-  try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/fetch-profile-pic/${_userName}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching banner:", error);
-    throw error;
-  }
-}
+import { fetchProfilePic } from "../components/cms";
 
 const storedUsername = document.cookie
   .split("; ")
@@ -44,7 +33,7 @@ const storedUsername = document.cookie
   ?.split("=")[1];
 
 const valuesData = await fetchProfilePic(storedUsername);
-const imagePath = valuesData._profilePicture;
+//const imagePath = valuesData._profilePicture;
 //const filename = imagePath.substring(imagePath.lastIndexOf("\\") + 1);
 
 export default function ProfileInfo(props) {
@@ -73,13 +62,12 @@ export default function ProfileInfo(props) {
 
   const handleConfirmChange = async (event) => {
     event.preventDefault();
-
     const formData = new FormData();
     formData.append("_userName", storedUsername);
     formData.append("image", uploadedImage);
 
     try {
-      const response = await axios.post(
+      const response = await axios.put(
         `${process.env.REACT_APP_API_URL}/update-user-profilepic`,
         formData
       );
@@ -382,7 +370,7 @@ export default function ProfileInfo(props) {
                     <Grid item xs={3}>
                       <Avatar
                         alt={profile.name}
-                        src={imagePath}
+                        // src={require(`../images/profile/${filename}`)}
                         //src={ProfilePic}
                         sx={{
                           width: 40,

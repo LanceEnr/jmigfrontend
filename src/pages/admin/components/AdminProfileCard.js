@@ -15,25 +15,14 @@ import { styled } from "@mui/system";
 import Divider from "@mui/material/Divider";
 import CoverPhoto from "../../../assets/coverphoto.webp";
 
-async function fetchProfilePic2(_userName) {
-  try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/fetch-profile-pic2/${_userName}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching banner:", error);
-    throw error;
-  }
-}
+import { fetchProfilePic2 } from "../../../components/cms";
 
 const storedUsername = document.cookie
   .split("; ")
   .find((cookie) => cookie.startsWith("adminUsername="))
   ?.split("=")[1];
-
 const valuesData = await fetchProfilePic2(storedUsername);
-const imagePath = valuesData._profilePicture;
+//const imagePath = valuesData._profilePicture;
 //const filename = imagePath.substring(imagePath.lastIndexOf("\\") + 1);
 // try {
 //   const valuesData = await fetchProfilePic2(storedUsername);
@@ -61,7 +50,6 @@ export default function AdminProfileCard({ profile }) {
     .split("; ")
     .find((cookie) => cookie.startsWith("adminUsername="))
     ?.split("=")[1];
-
   const [count, setCounts] = useState({
     totalOrders: "",
     totalAppointments: "",
@@ -77,7 +65,7 @@ export default function AdminProfileCard({ profile }) {
     formData.append("image", uploadedImage);
 
     try {
-      const response = await axios.post(
+      const response = await axios.put(
         `${process.env.REACT_APP_API_URL}/update-user-profilepic2`,
         formData
       );
@@ -108,7 +96,6 @@ export default function AdminProfileCard({ profile }) {
       .split("; ")
       .find((cookie) => cookie.startsWith("adminUsername="))
       ?.split("=")[1];
-
     axios
       .get(
         `${process.env.REACT_APP_API_URL}/get-counts?userName=${storedUsername}`
@@ -140,7 +127,7 @@ export default function AdminProfileCard({ profile }) {
       >
         <Avatar
           alt={profile.name}
-          src={imagePath}
+          //src={require(`../../images/profile/${filename}`)}
           sx={{
             width: 100,
             height: 100,

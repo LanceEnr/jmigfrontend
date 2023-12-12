@@ -48,13 +48,13 @@ async function fetchBannerDataFAQ() {
 }
 
 const valuesData = await fetchBannerDataFAQ();
-const imagePath = valuesData._image;
+const imagepath = valuesData._image;
 
 function Faqs() {
   window.scrollTo({ top: 0 });
   return (
     <div>
-      <Banner bannerImage={imagePath} title="FREQUENTLY ASKED QUESTIONS" />
+      <Banner bannerImage={imagepath} title="FREQUENTLY ASKED QUESTIONS" />
 
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <CustomizedAccordions items={rowsFaqs} />
