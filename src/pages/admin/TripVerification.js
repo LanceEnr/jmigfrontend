@@ -157,7 +157,7 @@ export default function TripVerification() {
   const fetchDocuments = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/fetch-documentCheck`
+        "http://localhost:3001/fetch-documentCheck"
       );
       return response.data;
     } catch (error) {
@@ -168,7 +168,7 @@ export default function TripVerification() {
   const fetchSafetyCheck = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/fetch-schecklist`
+        "http://localhost:3001/fetch-schecklist"
       );
       return response.data;
     } catch (error) {
@@ -185,7 +185,7 @@ export default function TripVerification() {
       });
 
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/fetch-documentCheck/${id}`
+        `http://localhost:3001/fetch-documentCheck/${id}`
       );
       const checklistData = response.data;
 
@@ -214,7 +214,7 @@ export default function TripVerification() {
       });
 
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/fetch-safetychecklist/${id}`
+        `http://localhost:3001/fetch-safetychecklist/${id}`
       );
       const checklistData = response.data;
       setSafetyChecklistData((prevState) => ({
@@ -236,7 +236,7 @@ export default function TripVerification() {
   const fetchSignatureImage = async (id) => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/fetch-signature/${id}`
+        `http://localhost:3001/fetch-signature/${id}`
       );
       return response.data;
     } catch (error) {
@@ -517,35 +517,35 @@ export default function TripVerification() {
             {
               documentName: "Suspension System",
               approved: SafetyChecklistData.suspension,
-              image: SafetyChecklistData["0"],
+              image: SafetyChecklistData.suspensionPic,
             },
             {
               documentName: "Brake System",
               approved: SafetyChecklistData.brake,
-              image: SafetyChecklistData["1"],
+              image: SafetyChecklistData.brakePic,
             },
             {
               documentName: "Steering System",
               approved: SafetyChecklistData.steering,
-              image: SafetyChecklistData["2"],
+              image: SafetyChecklistData.steeringPic,
             },
             ,
             {
               documentName: "Tires and Wheels",
               approved: SafetyChecklistData.tireswheels,
-              image: SafetyChecklistData["3"],
+              image: SafetyChecklistData.tirewheelsPic,
             },
             ,
             {
               documentName: "Safety Equipments",
               approved: SafetyChecklistData.safetyequipment,
-              image: SafetyChecklistData["4"],
+              image: SafetyChecklistData.safetyequipmentPic,
             },
             ,
             {
               documentName: "Lights and Reflectors",
               approved: SafetyChecklistData.lights,
-              image: SafetyChecklistData["5"],
+              image: SafetyChecklistData.lightsPic,
             },
           ].map(({ documentName, approved, image }, index) => (
             <ListItem key={index}>
@@ -562,7 +562,7 @@ export default function TripVerification() {
               <ListItemText primary={documentName} />
               <img
                 src={image || Signature}
-                alt=""
+                alt="Rectangle Picture"
                 style={{ width: "160px", height: "70px" }}
               />
             </ListItem>
