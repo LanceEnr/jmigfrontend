@@ -78,66 +78,69 @@ const mobilePages = [
   { name: "Contact", icon: <MailIcon /> },
 ];
 
-// const timeAgo = (timestamp) => {
-//   const currentDate = new Date();
-//   const notificationDate = new Date(timestamp);
-//   const timeDifference = currentDate - notificationDate;
-//   const seconds = Math.floor(timeDifference / 1000);
-//   const minutes = Math.floor(seconds / 60);
-//   const hours = Math.floor(minutes / 60);
+const timeAgo = (timestamp) => {
+  const currentDate = new Date();
+  const notificationDate = new Date(timestamp);
+  const timeDifference = currentDate - notificationDate;
+  const seconds = Math.floor(timeDifference / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
 
-//   if (minutes < 1) {
-//     // Display seconds if less than 1 minute
-//     return `${seconds} second${seconds === 1 ? "" : "s"} ago`;
-//   } else if (hours < 1) {
-//     // Display minutes if less than 1 hour
-//     return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
-//   } else if (hours < 24) {
-//     // Display hours if less than 24 hours
-//     return `${hours} hour${hours === 1 ? "" : "s"} ago`;
-//   } else {
-//     // If more than 24 hours, display the full date
-//     const options = {
-//       weekday: "short",
-//       month: "short",
-//       day: "2-digit",
-//       year: "numeric",
-//       hour: "2-digit",
-//       minute: "2-digit",
-//       second: "2-digit",
-//       timeZoneName: "short",
-//     };
-//     return notificationDate.toLocaleString("en-US", options);
-//   }
-// };
+  if (minutes < 1) {
+    return `${seconds} second${seconds === 1 ? "" : "s"} ago`;
+  } else if (hours < 1) {
+    return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
+  } else if (hours < 24) {
+    return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+  } else {
+    const options = {
+      weekday: "short",
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      timeZoneName: "short",
+    };
+    return notificationDate.toLocaleString("en-US", options);
+  }
+};
 
-// const userName = localStorage.getItem("userName");
-// //const name = "";
-// const fetchNotifications = async () => {
-//   const storedUsername = localStorage.getItem("userName");
+const userName = document.cookie
+  .split("; ")
+  .find((cookie) => cookie.startsWith("userName="))
+  ?.split("=")[1];
 
-//   try {
-//     const response = await axios.get(
-//       `${process.env.REACT_APP_API_URL}/fetch-notifications?userName=${storedUsername}`
-//     );
+const name = "";
+const fetchNotifications = async () => {
+  const storedUsername = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("userName="))
+    ?.split("=")[1];
 
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error fetching data:", error);
-//     return [];
-//   }
-// };
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/fetch-notifications?userName=${storedUsername}`
+    );
 
-// const transformNotification = (data) => {
-//   return data.map((item) => ({
-//     icon: item._title.toLowerCase().includes("order") ? OrderIcon : EventIcon,
-//     heading: item._title,
-//     text: item._description,
-//     date: item._date,
-//   }));
-// };
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+};
 
-// const notifications = transformNotification(await fetchNotifications());
+const transformNotification = (data) => {
+  return data.map((item) => ({
+    icon: item._title.toLowerCase().includes("order") ? OrderIcon : EventIcon,
+    heading: item._title,
+    text: item._description,
+    date: item._date,
+  }));
+};
+
+const notifications = transformNotification(await fetchNotifications());
 
 function ResponsiveAppBar() {
   const navigate = useNavigate();
@@ -306,7 +309,7 @@ function ResponsiveAppBar() {
               <Tooltip title="Notifications">
                 <IconButton onClick={handleOpenNotificationsMenu}>
                   <ColoredBadge
-                  // badgeContent={notifications ? notifications.length : 0}
+                    badgeContent={notifications ? notifications.length : 0}
                   >
                     <NotificationsIcon color="action" />
                   </ColoredBadge>
@@ -363,20 +366,11 @@ function ResponsiveAppBar() {
                   >
                     NOTIFICATIONS
                   </Typography>
-                  <Typography
-                    variant="subtitle2"
-                    sx={{
-                      color: "#83948a",
-                      cursor: "pointer",
-                    }}
-                  >
-                    CLEAR ALL
-                  </Typography>
                 </Box>
 
                 <Divider />
                 <StyledBox sx={{ overflow: "auto", maxHeight: "600px" }}>
-                  {/* {notifications.length === 0 ? (
+                  {notifications.length === 0 ? (
                     <Typography
                       variant="subtitle2"
                       color="textSecondary"
@@ -437,7 +431,7 @@ function ResponsiveAppBar() {
                         <Divider />
                       </div>
                     ))
-                  )} */}
+                  )}
                 </StyledBox>
               </Menu>
             </Box>
