@@ -411,6 +411,10 @@ export default function AdminDashboard() {
   const selectedMenuItemStyle = {
     color: "blue",
   };
+  const userName = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("userName="))
+    ?.split("=")[1];
 
   return (
     <>
@@ -718,7 +722,7 @@ export default function AdminDashboard() {
                     // src={require(`../images/profile/${filename}`)}
                     />
                   </ListItemIcon>
-                  Username
+                  {userName}
                 </MenuItem>
                 <Divider />
 

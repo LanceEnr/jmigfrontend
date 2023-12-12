@@ -230,6 +230,10 @@ function AdminHomepage() {
 
     fetchData();
   }, []);
+  const userName = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("userName="))
+    ?.split("=")[1];
   return (
     <div>
       <Box sx={{ my: 4 }}>
@@ -246,7 +250,7 @@ function AdminHomepage() {
             style={{ fontWeight: "bold", fontSize: "30px" }}
             color="secondary"
           >
-            Lance
+            {userName}
           </Typography>
         </Typography>
         <Grid sx={{ mt: 3 }} container spacing={3}>
