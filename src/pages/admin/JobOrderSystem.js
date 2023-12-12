@@ -411,6 +411,7 @@ const ValidationDialog = ({
       if (response.status === 200) {
         console.log("Data submitted successfully!");
         toast.success("Job added/edited successfully!");
+        window.location.reload();
       } else {
         console.error("Failed to submit data");
         toast.error("Please try again!");

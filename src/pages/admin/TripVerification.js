@@ -157,7 +157,7 @@ export default function TripVerification() {
   const fetchDocuments = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3001/fetch-documentCheck"
+        `${process.env.REACT_APP_API_URL}/fetch-documentCheck`
       );
       return response.data;
     } catch (error) {
@@ -168,7 +168,7 @@ export default function TripVerification() {
   const fetchSafetyCheck = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3001/fetch-schecklist"
+        `${process.env.REACT_APP_API_URL}/fetch-schecklist`
       );
       return response.data;
     } catch (error) {
@@ -185,7 +185,7 @@ export default function TripVerification() {
       });
 
       const response = await axios.get(
-        `http://localhost:3001/fetch-documentCheck/${id}`
+        `${process.env.REACT_APP_API_URL}/fetch-documentCheck/${id}`
       );
       const checklistData = response.data;
 
@@ -214,7 +214,7 @@ export default function TripVerification() {
       });
 
       const response = await axios.get(
-        `http://localhost:3001/fetch-safetychecklist/${id}`
+        `${process.env.REACT_APP_API_URL}/fetch-safetychecklist/${id}`
       );
       const checklistData = response.data;
       setSafetyChecklistData((prevState) => ({
@@ -236,7 +236,7 @@ export default function TripVerification() {
   const fetchSignatureImage = async (id) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/fetch-signature/${id}`
+        `${process.env.REACT_APP_API_URL}/fetch-signature/${id}`
       );
       return response.data;
     } catch (error) {
@@ -562,7 +562,7 @@ export default function TripVerification() {
               <ListItemText primary={documentName} />
               <img
                 src={image || Signature}
-                alt="Rectangle Picture"
+                alt=""
                 style={{ width: "160px", height: "70px" }}
               />
             </ListItem>
