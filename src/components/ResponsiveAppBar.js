@@ -496,7 +496,7 @@ function ResponsiveAppBar() {
                       // src={require(`../images/profile/${filename}`)}
                     />
                   </ListItemIcon>
-                  Username
+                  {userName}
                 </MenuItem>
                 <Divider />
 
