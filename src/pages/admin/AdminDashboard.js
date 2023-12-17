@@ -16,6 +16,7 @@ import { Avatar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import CustomerIcon from "@mui/icons-material/AccountCircle";
 import TripIcon from "@mui/icons-material/LocalShipping";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import DocumentIcon from "@mui/icons-material/Description";
@@ -201,6 +202,8 @@ const transformNotification = (data) => {
       icon = CompleteIcon;
     } else if (item._title.toLowerCase().includes("load")) {
       icon = LoadIcon;
+    } else if (item._title.toLowerCase().includes("reached")) {
+      icon = CustomerIcon;
     } else {
       icon = BuildIcon; // Default icon
     }

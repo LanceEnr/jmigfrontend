@@ -281,6 +281,18 @@ export default function NewDriverManagement() {
 
   const deleteRecord = async () => {
     try {
+      // Fetch the driver's trip information
+      const tripResponse = await axios.get(
+        `${process.env.REACT_APP_API_URL}/fetch-driver-trip/${id}`
+      );
+
+      // Check if the driver has any trips (return data)
+      if (tripResponse.data) {
+        toast.error("Driver has a pending trip. Cannot delete.");
+        return;
+      }
+
+      // Proceed with the deletion if trip data is found
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/deleteDriverRecord`,
         { _driverID: id }
