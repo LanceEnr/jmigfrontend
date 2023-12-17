@@ -149,6 +149,37 @@ export default function EditDriver() {
                     />
                   </Grid>
                   <Grid item xs={12}>
+                    <Box
+                      {...getRootProps()}
+                      sx={{
+                        height: 200,
+                        border: "1px dashed gray",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <input {...getInputProps()} />
+                      {selectedFiles.length > 0 ? (
+                        <ul>
+                          {selectedFiles.map((file, index) => (
+                            <li key={index}>
+                              {file.name}{" "}
+                              <button onClick={() => removeFile(index)}>
+                                Remove
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p>
+                          Drag & drop driver's license here, or click to select
+                          images
+                        </p>
+                      )}
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12}>
                     <TextField
                       label="License No."
                       name="licenseno"
