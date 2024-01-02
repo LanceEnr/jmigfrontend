@@ -17,10 +17,25 @@ export default function EditDriver() {
   const [contact, setContact] = useState("");
   const [date, setDate] = useState("");
   const [email, setEmail] = useState("");
+  const [img, setImg] = useState("");
   const [originalContact, setOriginalContact] = useState("");
   const [license, setLicense] = useState("");
   const [status, setStatus] = React.useState("unassigned");
 
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: (acceptedFiles) => {
+      // Handle dropped files here, if needed
+      setSelectedFiles(acceptedFiles);
+    },
+  });
+  const removeFile = (indexToRemove) => {
+    // Create a copy of the selectedFiles array without the file at the specified index
+    const updatedFiles = [
+      ...selectedFiles.slice(0, indexToRemove),
+      ...selectedFiles.slice(indexToRemove + 1),
+    ];
+    setSelectedFiles(updatedFiles);
+  };
   const handleChange = (event) => {
     setDriver(event.target.value);
   };
@@ -41,6 +56,7 @@ export default function EditDriver() {
         setDate(convertedDate);
         setEmail(response.data.email);
         setLicense(response.data.licenseNo);
+        setImg(response.data.imageURL);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -50,29 +66,40 @@ export default function EditDriver() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     try {
+      const formData = new FormData();
+      formData.append("driverName", name);
+      formData.append("contact", contact);
+      formData.append("date", date);
+      formData.append("status", status);
+      formData.append("email", email);
+      formData.append("licenseNo", license);
+      formData.append("id", id);
+
+      // Append each selected file to the FormData object with the same key
+      selectedFiles.forEach((file, index) => {
+        formData.append(`image`, file);
+      });
+
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/editDriver`,
+        formData,
         {
-          driverName: name,
-          contact: contact,
-          date: date,
-          status: status,
-          email: email,
-          licenseNo: license,
-          id: id,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
 
-      toast.success("Dirver edited successfully");
-
+      toast.success("Driver edited successfully");
       navigate("/admindrivermanagement");
     } catch (error) {
       console.error("Driver edit failed", error);
-
       toast.error("Driver edit failed!");
     }
   };
+
   const getCurrentDate = () => {
     const today = new Date();
     const month = String(today.getMonth() + 1).padStart(2, "0");
@@ -172,13 +199,15 @@ export default function EditDriver() {
                           ))}
                         </ul>
                       ) : (
-                        <p>
-                          Drag & drop driver's license here, or click to select
-                          images
-                        </p>
+                        <img
+                          src={img}
+                          alt="Default Image"
+                          style={{ maxWidth: "100%", maxHeight: "100%" }}
+                        />
                       )}
                     </Box>
                   </Grid>
+
                   <Grid item xs={12}>
                     <TextField
                       label="License No."

@@ -17,6 +17,20 @@ export default function AddDriver() {
   const [license, setLicense] = useState("");
   const [status, setStatus] = React.useState("unassigned");
   const navigate = useNavigate();
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: (acceptedFiles) => {
+      // Handle dropped files here, if needed
+      setSelectedFiles(acceptedFiles);
+    },
+  });
+  const removeFile = (indexToRemove) => {
+    // Create a copy of the selectedFiles array without the file at the specified index
+    const updatedFiles = [
+      ...selectedFiles.slice(0, indexToRemove),
+      ...selectedFiles.slice(indexToRemove + 1),
+    ];
+    setSelectedFiles(updatedFiles);
+  };
 
   const getCurrentDate = () => {
     const today = new Date();
@@ -49,15 +63,26 @@ export default function AddDriver() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      const formData = new FormData();
+      formData.append("driverName", name);
+      formData.append("contact", contact);
+      formData.append("date", date);
+      formData.append("status", status);
+      formData.append("email", email);
+      formData.append("licenseNo", license);
+
+      // Append each selected file to the FormData object with the same key
+      selectedFiles.forEach((file, index) => {
+        formData.append("image", file);
+      });
+
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/addDriver`,
+        formData,
         {
-          driverName: name,
-          contact: contact,
-          date: date,
-          status: status,
-          email: email,
-          licenseNo: license,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
 
